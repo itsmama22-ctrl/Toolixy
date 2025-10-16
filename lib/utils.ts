@@ -19,13 +19,16 @@ export function formatDate(date: Date | string, formatStr: string = 'MMM dd, yyy
 }
 
 /**
- * Check if a blog post should be published based on publish date
+ * Check if a blog post should be published based on publish date and status
  */
-export function shouldPublishPost(publishDate: string): boolean {
+export function shouldPublishPost(publishDate: string, status?: string): boolean {
   const postDate = parseISO(publishDate);
   const today = new Date();
   
   if (!isValid(postDate)) return false;
+  
+  // If status is explicitly 'draft', don't publish regardless of date
+  if (status === 'draft') return false;
   
   // Check if publish date is today or earlier
   return isBefore(postDate, today) || format(postDate, 'yyyy-MM-dd') === format(today, 'yyyy-MM-dd');

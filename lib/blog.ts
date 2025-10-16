@@ -36,7 +36,7 @@ export function getPostBySlug(slug: string): BlogPost | null {
     const { data, content } = matter(fileContents);
 
     // Check if post should be published
-    if (!shouldPublishPost(data.publishDate)) {
+    if (!shouldPublishPost(data.publishDate, data.status)) {
       return null;
     }
 
@@ -233,6 +233,56 @@ export function generatePostSlug(title: string): string {
     .replace(/[^\w\s-]/g, '') // Remove special characters
     .replace(/[\s_-]+/g, '-') // Replace spaces and underscores with hyphens
     .replace(/^-+|-+$/g, ''); // Remove leading/trailing hyphens
+}
+
+/**
+ * Automatically publish draft posts when their scheduled date arrives
+ */
+export function autoPublishScheduledPosts(): { published: string[]; errors: string[] } {
+  const slugs = getAllPostSlugs();
+  const published: string[] = [];
+  const errors: string[] = [];
+  const today = new Date();
+
+  slugs.forEach(slug => {
+    try {
+      const fullPath = path.join(contentDirectory, `${slug}.md`);
+      const fileContents = fs.readFileSync(fullPath, 'utf8');
+      const { data, content } = matter(fileContents);
+
+      // Check if post is draft and publish date has arrived
+      if (data.status === 'draft' && data.publishDate) {
+        const publishDate = new Date(data.publishDate);
+        
+        if (publishDate <= today) {
+          // Remove the status field to publish the post
+          const updatedData = { ...data };
+          delete updatedData.status;
+          
+          // Reconstruct the frontmatter
+          const updatedFrontmatter = `---\n${Object.entries(updatedData)
+            .map(([key, value]) => {
+              if (key === 'author') {
+                return `author:\n  name: "${value.name}"\n  avatar: "${value.avatar || ''}"`;
+              }
+              if (Array.isArray(value)) {
+                return `${key}: [${value.map(v => `"${v}"`).join(', ')}]`;
+              }
+              return `${key}: "${value}"`;
+            })
+            .join('\n')}\n---\n\n${content}`;
+
+          // Write the updated file
+          fs.writeFileSync(fullPath, updatedFrontmatter, 'utf8');
+          published.push(slug);
+        }
+      }
+    } catch (error) {
+      errors.push(`Error processing ${slug}: ${error}`);
+    }
+  });
+
+  return { published, errors };
 }
 
 /**
