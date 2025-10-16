@@ -271,26 +271,3 @@ export function formatFileSize(bytes: number): string {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
 }
 
-/**
- * Check if user has reached usage limits
- */
-export function hasReachedLimit(
-  currentUsage: number,
-  limit: number,
-  plan: 'free' | 'pro'
-): boolean {
-  if (plan === 'pro') return false; // Pro users have unlimited usage
-  return currentUsage >= limit;
-}
-
-/**
- * Get remaining usage count
- */
-export function getRemainingUsage(
-  currentUsage: number,
-  limit: number,
-  plan: 'free' | 'pro'
-): number {
-  if (plan === 'pro') return Infinity;
-  return Math.max(0, limit - currentUsage);
-}

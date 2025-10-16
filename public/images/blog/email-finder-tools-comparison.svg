@@ -1,0 +1,142 @@
+<svg width="800" height="400" viewBox="0 0 800 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#06B6D4;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#0891B2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0E7490;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="tool" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F9FAFB;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="400" fill="url(#bg)"/>
+  
+  <!-- Decorative elements -->
+  <circle cx="100" cy="100" r="60" fill="white" opacity="0.1"/>
+  <circle cx="700" cy="300" r="80" fill="white" opacity="0.08"/>
+  <circle cx="650" cy="100" r="40" fill="white" opacity="0.12"/>
+  
+  <!-- Main content area -->
+  <rect x="50" y="50" width="700" height="300" rx="20" fill="white" opacity="0.95"/>
+  
+  <!-- Email finder tools comparison -->
+  <g transform="translate(400, 150)">
+    <!-- Tool 1 -->
+    <g transform="translate(-120, -40)">
+      <rect x="0" y="0" width="80" height="100" rx="8" fill="url(#tool)" stroke="#06B6D4" stroke-width="2"/>
+      <rect x="10" y="10" width="60" height="12" rx="2" fill="#3B82F6"/>
+      <text x="40" y="19" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="8" font-weight="bold">Tool A</text>
+      
+      <!-- Features -->
+      <circle cx="15" cy="35" r="3" fill="#10B981"/>
+      <text x="22" y="38" fill="#374151" font-family="Arial, sans-serif" font-size="8">Email Search</text>
+      
+      <circle cx="15" cy="50" r="3" fill="#10B981"/>
+      <text x="22" y="53" fill="#374151" font-family="Arial, sans-serif" font-size="8">Verification</text>
+      
+      <circle cx="15" cy="65" r="3" fill="#F59E0B"/>
+      <text x="22" y="68" fill="#374151" font-family="Arial, sans-serif" font-size="8">Limited API</text>
+      
+      <circle cx="15" cy="80" r="3" fill="#EF4444"/>
+      <text x="22" y="83" fill="#374151" font-family="Arial, sans-serif" font-size="8">No Export</text>
+    </g>
+    
+    <!-- Tool 2 -->
+    <g transform="translate(-20, -40)">
+      <rect x="0" y="0" width="80" height="100" rx="8" fill="url(#tool)" stroke="#10B981" stroke-width="2"/>
+      <rect x="10" y="10" width="60" height="12" rx="2" fill="#10B981"/>
+      <text x="40" y="19" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="8" font-weight="bold">Tool B</text>
+      
+      <!-- Features -->
+      <circle cx="15" cy="35" r="3" fill="#10B981"/>
+      <text x="22" y="38" fill="#374151" font-family="Arial, sans-serif" font-size="8">Email Search</text>
+      
+      <circle cx="15" cy="50" r="3" fill="#10B981"/>
+      <text x="22" y="53" fill="#374151" font-family="Arial, sans-serif" font-size="8">Verification</text>
+      
+      <circle cx="15" cy="65" r="3" fill="#10B981"/>
+      <text x="22" y="68" fill="#374151" font-family="Arial, sans-serif" font-size="8">Full API</text>
+      
+      <circle cx="15" cy="80" r="3" fill="#10B981"/>
+      <text x="22" y="83" fill="#374151" font-family="Arial, sans-serif" font-size="8">CSV Export</text>
+    </g>
+    
+    <!-- Tool 3 -->
+    <g transform="translate(80, -40)">
+      <rect x="0" y="0" width="80" height="100" rx="8" fill="url(#tool)" stroke="#F59E0B" stroke-width="2"/>
+      <rect x="10" y="10" width="60" height="12" rx="2" fill="#F59E0B"/>
+      <text x="40" y="19" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="8" font-weight="bold">Tool C</text>
+      
+      <!-- Features -->
+      <circle cx="15" cy="35" r="3" fill="#10B981"/>
+      <text x="22" y="38" fill="#374151" font-family="Arial, sans-serif" font-size="8">Email Search</text>
+      
+      <circle cx="15" cy="50" r="3" fill="#F59E0B"/>
+      <text x="22" y="53" fill="#374151" font-family="Arial, sans-serif" font-size="8">Basic Verify</text>
+      
+      <circle cx="15" cy="65" r="3" fill="#10B981"/>
+      <text x="22" y="68" fill="#374151" font-family="Arial, sans-serif" font-size="8">API Access</text>
+      
+      <circle cx="15" cy="80" r="3" fill="#F59E0B"/>
+      <text x="22" y="83" fill="#374151" font-family="Arial, sans-serif" font-size="8">Limited Export</text>
+    </g>
+    
+    <!-- Comparison arrows -->
+    <g>
+      <path d="M -40 20 Q -30 10 -20 20" stroke="#06B6D4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+      <path d="M 60 20 Q 70 10 80 20" stroke="#06B6D4" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+    </g>
+    
+    <!-- Rating stars -->
+    <g transform="translate(-120, 70)">
+      <text x="0" y="0" fill="#F59E0B" font-family="Arial, sans-serif" font-size="12">★★★☆☆</text>
+      <text x="0" y="15" text-anchor="middle" fill="#6B7280" font-family="Arial, sans-serif" font-size="8">3.2/5</text>
+    </g>
+    
+    <g transform="translate(-20, 70)">
+      <text x="0" y="0" fill="#F59E0B" font-family="Arial, sans-serif" font-size="12">★★★★★</text>
+      <text x="0" y="15" text-anchor="middle" fill="#6B7280" font-family="Arial, sans-serif" font-size="8">4.8/5</text>
+    </g>
+    
+    <g transform="translate(80, 70)">
+      <text x="0" y="0" fill="#F59E0B" font-family="Arial, sans-serif" font-size="12">★★★★☆</text>
+      <text x="0" y="15" text-anchor="middle" fill="#6B7280" font-family="Arial, sans-serif" font-size="8">4.1/5</text>
+    </g>
+    
+    <!-- Price tags -->
+    <g transform="translate(-120, 90)">
+      <rect x="0" y="0" width="30" height="12" rx="2" fill="#EF4444"/>
+      <text x="15" y="8" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="8" font-weight="bold">$29/mo</text>
+    </g>
+    
+    <g transform="translate(-20, 90)">
+      <rect x="0" y="0" width="30" height="12" rx="2" fill="#10B981"/>
+      <text x="15" y="8" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="8" font-weight="bold">$49/mo</text>
+    </g>
+    
+    <g transform="translate(80, 90)">
+      <rect x="0" y="0" width="30" height="12" rx="2" fill="#F59E0B"/>
+      <text x="15" y="8" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="8" font-weight="bold">$19/mo</text>
+    </g>
+    
+    <!-- Marker -->
+    <defs>
+      <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+        <polygon points="0 0, 10 3.5, 0 7" fill="#06B6D4"/>
+      </marker>
+    </defs>
+  </g>
+  
+  <!-- Title -->
+  <text x="400" y="280" text-anchor="middle" fill="#1F2937" font-family="Arial, sans-serif" font-size="24" font-weight="bold">Email Finder Tools Comparison</text>
+  
+  <!-- Subtitle -->
+  <text x="400" y="310" text-anchor="middle" fill="#6B7280" font-family="Arial, sans-serif" font-size="16">Find the Best Email Discovery Solution</text>
+  
+  <!-- Decorative lines -->
+  <line x1="200" y1="330" x2="600" y2="330" stroke="#06B6D4" stroke-width="2" opacity="0.3"/>
+  <line x1="250" y1="340" x2="550" y2="340" stroke="#06B6D4" stroke-width="1" opacity="0.2"/>
+</svg>

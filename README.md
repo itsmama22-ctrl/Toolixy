@@ -1,6 +1,6 @@
-# MultiTool SaaS - Email Extractor & Color Palette Generator
+# Toolisy - Multi-Tool Platform
 
-A modern, multi-tool SaaS website built with React, Next.js, and Netlify. Features professional email extraction and color palette generation tools with a comprehensive blog system and automated publishing.
+A clean, modern multi-tool website built with Next.js 14, TypeScript, and Tailwind CSS. Features email extraction and color palette generation tools with a comprehensive blog system.
 
 ## 🚀 Features
 
@@ -11,13 +11,13 @@ A modern, multi-tool SaaS website built with React, Next.js, and Netlify. Featur
 ### Platform Features
 - **Responsive Design**: Works perfectly on all devices
 - **SEO Optimized**: Complete meta tags, sitemaps, and structured data
-- **Blog System**: Markdown-based blog with date-based publishing
-- **Automated Publishing**: Scheduled blog post releases via Netlify build hooks
-- **Pricing Tiers**: Free and Pro plans with usage limits
+- **Blog System**: Markdown-based blog with professional content
+- **Client-Side Processing**: No server dependencies, works entirely in browser
+- **Clean Interface**: Minimal, focused design without complexity
 - **Performance Optimized**: Fast loading with Core Web Vitals optimization
 
 ### Technical Features
-- **Serverless Functions**: Netlify Functions for backend processing
+- **Client-Side Tools**: Email extraction and color palette generation in browser
 - **TypeScript**: Full type safety throughout the application
 - **Tailwind CSS**: Modern, responsive styling
 - **React Components**: Reusable, well-documented components
@@ -27,7 +27,7 @@ A modern, multi-tool SaaS website built with React, Next.js, and Netlify. Featur
 
 - **Frontend**: Next.js 14, React 18, TypeScript
 - **Styling**: Tailwind CSS, Framer Motion
-- **Backend**: Netlify Functions (Node.js)
+- **Processing**: Client-side JavaScript
 - **Content**: Markdown with gray-matter
 - **Deployment**: Netlify
 - **Analytics**: Ready for Google Analytics, Mixpanel

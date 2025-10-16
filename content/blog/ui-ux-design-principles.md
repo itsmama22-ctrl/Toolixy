@@ -1,12 +1,12 @@
 ---
 title: "Essential UI/UX Design Principles for Modern Web Applications"
-publishDate: "2024-01-27"
+publishDate: "2025-10-17"
 lastModified: "2024-01-27"
 tags: ["ui/ux", "design", "web design", "user experience", "interface"]
 author:
   name: "Michael Chen"
-  avatar: "/images/authors/michael-chen.jpg"
-featuredImage: "/images/blog/ui-ux-design-principles.jpg"
+  avatar: "/images/authors/michael-chen.svg"
+featuredImage: "/images/blog/ui-ux-design-principles.svg"
 metaTitle: "Essential UI/UX Design Principles for Modern Web Applications 2024"
 metaDescription: "Master the essential UI/UX design principles for creating modern, user-friendly web applications. Learn about usability, accessibility, and design best practices."
 keywords: ["ui design", "ux design", "user interface", "user experience", "web design principles"]

@@ -1,12 +1,12 @@
 ---
 title: "SaaS Marketing Strategies: How to Grow Your Software Business in 2024"
-publishDate: "2024-01-21"
+publishDate: "2025-10-17"
 lastModified: "2024-01-21"
 tags: ["saas marketing", "growth hacking", "startup", "digital marketing", "business"]
 author:
   name: "Alex Rodriguez"
-  avatar: "/images/authors/alex-rodriguez.jpg"
-featuredImage: "/images/blog/saas-marketing-strategies.jpg"
+  avatar: "/images/authors/alex-rodriguez.svg"
+featuredImage: "/images/blog/saas-marketing-strategies.svg"
 metaTitle: "SaaS Marketing Strategies 2024 - Grow Your Software Business"
 metaDescription: "Discover proven SaaS marketing strategies to grow your software business. Learn about customer acquisition, retention, and scaling techniques for 2024."
 keywords: ["saas marketing", "software marketing", "customer acquisition", "growth strategies", "startup marketing"]

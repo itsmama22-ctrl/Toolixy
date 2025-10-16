@@ -1,0 +1,65 @@
+<svg width="800" height="400" viewBox="0 0 800 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3B82F6;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1D4ED8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1E40AF;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="email" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E5E7EB;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="400" fill="url(#bg)"/>
+  
+  <!-- Decorative elements -->
+  <circle cx="100" cy="100" r="60" fill="white" opacity="0.1"/>
+  <circle cx="700" cy="300" r="80" fill="white" opacity="0.08"/>
+  <circle cx="650" cy="100" r="40" fill="white" opacity="0.12"/>
+  
+  <!-- Main content area -->
+  <rect x="50" y="50" width="700" height="300" rx="20" fill="white" opacity="0.95"/>
+  
+  <!-- Email extraction illustration -->
+  <g transform="translate(400, 150)">
+    <!-- Website mockup -->
+    <rect x="-80" y="-60" width="160" height="100" rx="8" fill="#F3F4F6" stroke="#E5E7EB" stroke-width="2"/>
+    <rect x="-70" y="-50" width="140" height="20" rx="4" fill="#E5E7EB"/>
+    <rect x="-70" y="-25" width="100" height="8" rx="2" fill="#D1D5DB"/>
+    <rect x="-70" y="-10" width="120" height="8" rx="2" fill="#D1D5DB"/>
+    <rect x="-70" y="5" width="80" height="8" rx="2" fill="#D1D5DB"/>
+    <rect x="-70" y="20" width="90" height="8" rx="2" fill="#D1D5DB"/>
+    
+    <!-- Email icon -->
+    <circle cx="-90" cy="50" r="15" fill="url(#email)" stroke="#3B82F6" stroke-width="2"/>
+    <text x="-90" y="56" text-anchor="middle" fill="#3B82F6" font-family="Arial, sans-serif" font-size="12" font-weight="bold">@</text>
+    
+    <!-- Arrow -->
+    <path d="M -60 50 Q -30 40 0 50 Q 30 60 60 50" stroke="#10B981" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+    
+    <!-- Email list -->
+    <rect x="80" y="30" width="100" height="40" rx="6" fill="#10B981" opacity="0.1"/>
+    <rect x="85" y="35" width="90" height="6" rx="2" fill="#10B981"/>
+    <rect x="85" y="45" width="75" height="6" rx="2" fill="#10B981"/>
+    <rect x="85" y="55" width="80" height="6" rx="2" fill="#10B981"/>
+    
+    <!-- Marker -->
+    <defs>
+      <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+        <polygon points="0 0, 10 3.5, 0 7" fill="#10B981"/>
+      </marker>
+    </defs>
+  </g>
+  
+  <!-- Title -->
+  <text x="400" y="280" text-anchor="middle" fill="#1F2937" font-family="Arial, sans-serif" font-size="24" font-weight="bold">Email Extraction Guide</text>
+  
+  <!-- Subtitle -->
+  <text x="400" y="310" text-anchor="middle" fill="#6B7280" font-family="Arial, sans-serif" font-size="16">Tools, Techniques & Best Practices</text>
+  
+  <!-- Decorative lines -->
+  <line x1="200" y1="330" x2="600" y2="330" stroke="#3B82F6" stroke-width="2" opacity="0.3"/>
+  <line x1="250" y1="340" x2="550" y2="340" stroke="#3B82F6" stroke-width="1" opacity="0.2"/>
+</svg>

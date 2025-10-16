@@ -1,0 +1,109 @@
+<svg width="800" height="400" viewBox="0 0 800 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10B981;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#059669;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#047857;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="design" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F9FAFB;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="400" fill="url(#bg)"/>
+  
+  <!-- Decorative elements -->
+  <circle cx="100" cy="100" r="60" fill="white" opacity="0.1"/>
+  <circle cx="700" cy="300" r="80" fill="white" opacity="0.08"/>
+  <circle cx="650" cy="100" r="40" fill="white" opacity="0.12"/>
+  
+  <!-- Main content area -->
+  <rect x="50" y="50" width="700" height="300" rx="20" fill="white" opacity="0.95"/>
+  
+  <!-- UI/UX Design illustration -->
+  <g transform="translate(400, 150)">
+    <!-- Mobile device -->
+    <g transform="translate(-80, -40)">
+      <rect x="0" y="0" width="60" height="100" rx="12" fill="#1F2937" stroke="#374151" stroke-width="2"/>
+      <rect x="5" y="8" width="50" height="84" rx="8" fill="url(#design)"/>
+      
+      <!-- Screen content -->
+      <rect x="8" y="12" width="44" height="8" rx="2" fill="#3B82F6"/>
+      <rect x="8" y="24" width="32" height="6" rx="1" fill="#D1D5DB"/>
+      <rect x="8" y="34" width="36" height="6" rx="1" fill="#D1D5DB"/>
+      <rect x="8" y="44" width="28" height="6" rx="1" fill="#D1D5DB"/>
+      <rect x="8" y="58" width="44" height="20" rx="4" fill="#10B981"/>
+      <rect x="8" y="82" width="20" height="8" rx="2" fill="#F59E0B"/>
+      <rect x="32" y="82" width="20" height="8" rx="2" fill="#EF4444"/>
+    </g>
+    
+    <!-- Desktop interface -->
+    <g transform="translate(40, -40)">
+      <rect x="0" y="0" width="120" height="80" rx="8" fill="#1F2937" stroke="#374151" stroke-width="2"/>
+      <rect x="5" y="8" width="110" height="64" rx="6" fill="url(#design)"/>
+      
+      <!-- Desktop content -->
+      <rect x="10" y="15" width="100" height="12" rx="2" fill="#3B82F6"/>
+      <rect x="10" y="32" width="45" height="35" rx="3" fill="#F3F4F6" stroke="#E5E7EB" stroke-width="1"/>
+      <rect x="60" y="32" width="45" height="35" rx="3" fill="#F3F4F6" stroke="#E5E7EB" stroke-width="1"/>
+      <rect x="10" y="55" width="20" height="8" rx="2" fill="#10B981"/>
+      <rect x="35" y="55" width="20" height="8" rx="2" fill="#F59E0B"/>
+      <rect x="85" y="55" width="20" height="8" rx="2" fill="#EF4444"/>
+    </g>
+    
+    <!-- Design principles icons -->
+    <g transform="translate(-150, 40)">
+      <circle cx="0" cy="0" r="18" fill="#3B82F6" opacity="0.8"/>
+      <text x="0" y="3" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="10" font-weight="bold">👤</text>
+      <text x="0" y="30" text-anchor="middle" fill="#374151" font-family="Arial, sans-serif" font-size="8" font-weight="bold">User</text>
+    </g>
+    
+    <g transform="translate(-100, 40)">
+      <circle cx="0" cy="0" r="18" fill="#10B981" opacity="0.8"/>
+      <text x="0" y="3" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="10" font-weight="bold">🎯</text>
+      <text x="0" y="30" text-anchor="middle" fill="#374151" font-family="Arial, sans-serif" font-size="8" font-weight="bold">Focus</text>
+    </g>
+    
+    <g transform="translate(-50, 40)">
+      <circle cx="0" cy="0" r="18" fill="#F59E0B" opacity="0.8"/>
+      <text x="0" y="3" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="10" font-weight="bold">⚡</text>
+      <text x="0" y="30" text-anchor="middle" fill="#374151" font-family="Arial, sans-serif" font-size="8" font-weight="bold">Speed</text>
+    </g>
+    
+    <g transform="translate(0, 40)">
+      <circle cx="0" cy="0" r="18" fill="#EF4444" opacity="0.8"/>
+      <text x="0" y="3" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="10" font-weight="bold">📱</text>
+      <text x="0" y="30" text-anchor="middle" fill="#374151" font-family="Arial, sans-serif" font-size="8" font-weight="bold">Mobile</text>
+    </g>
+    
+    <g transform="translate(50, 40)">
+      <circle cx="0" cy="0" r="18" fill="#8B5CF6" opacity="0.8"/>
+      <text x="0" y="3" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="10" font-weight="bold">🎨</text>
+      <text x="0" y="30" text-anchor="middle" fill="#374151" font-family="Arial, sans-serif" font-size="8" font-weight="bold">Design</text>
+    </g>
+    
+    <g transform="translate(100, 40)">
+      <circle cx="0" cy="0" r="18" fill="#EC4899" opacity="0.8"/>
+      <text x="0" y="3" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="10" font-weight="bold">💡</text>
+      <text x="0" y="30" text-anchor="middle" fill="#374151" font-family="Arial, sans-serif" font-size="8" font-weight="bold">Innovation</text>
+    </g>
+    
+    <g transform="translate(150, 40)">
+      <circle cx="0" cy="0" r="18" fill="#06B6D4" opacity="0.8"/>
+      <text x="0" y="3" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="10" font-weight="bold">🔄</text>
+      <text x="0" y="30" text-anchor="middle" fill="#374151" font-family="Arial, sans-serif" font-size="8" font-weight="bold">Flow</text>
+    </g>
+  </g>
+  
+  <!-- Title -->
+  <text x="400" y="280" text-anchor="middle" fill="#1F2937" font-family="Arial, sans-serif" font-size="24" font-weight="bold">UI/UX Design Principles</text>
+  
+  <!-- Subtitle -->
+  <text x="400" y="310" text-anchor="middle" fill="#6B7280" font-family="Arial, sans-serif" font-size="16">Essential Guidelines for Better User Experience</text>
+  
+  <!-- Decorative lines -->
+  <line x1="200" y1="330" x2="600" y2="330" stroke="#10B981" stroke-width="2" opacity="0.3"/>
+  <line x1="250" y1="340" x2="550" y2="340" stroke="#10B981" stroke-width="1" opacity="0.2"/>
+</svg>

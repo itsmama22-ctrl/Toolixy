@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import EmailExtractor from '@/components/EmailExtractor';
+import EmailExtractorClient from '@/components/EmailExtractorClient';
 import SEO from '@/components/SEO';
 
 export const metadata: Metadata = {
@@ -31,7 +31,7 @@ export default function EmailExtractorPage() {
         url="/tools/email-extractor"
         type="website"
       />
-      <EmailExtractor />
+          <EmailExtractorClient />
     </>
   );
 }

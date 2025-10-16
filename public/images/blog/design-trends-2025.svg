@@ -1,0 +1,120 @@
+<svg width="800" height="400" viewBox="0 0 800 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#EC4899;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#DB2777;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#BE185D;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="trend" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F9FAFB;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="400" fill="url(#bg)"/>
+  
+  <!-- Decorative elements -->
+  <circle cx="100" cy="100" r="60" fill="white" opacity="0.1"/>
+  <circle cx="700" cy="300" r="80" fill="white" opacity="0.08"/>
+  <circle cx="650" cy="100" r="40" fill="white" opacity="0.12"/>
+  
+  <!-- Main content area -->
+  <rect x="50" y="50" width="700" height="300" rx="20" fill="white" opacity="0.95"/>
+  
+  <!-- Design trends 2025 illustration -->
+  <g transform="translate(400, 150)">
+    <!-- Trend cards -->
+    <g transform="translate(-150, -50)">
+      <rect x="0" y="0" width="70" height="90" rx="8" fill="url(#trend)" stroke="#EC4899" stroke-width="2"/>
+      <rect x="5" y="5" width="60" height="15" rx="3" fill="#8B5CF6"/>
+      <text x="35" y="15" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="8" font-weight="bold">Glass</text>
+      
+      <!-- Trend elements -->
+      <rect x="10" y="25" width="50" height="30" rx="4" fill="#EC4899" opacity="0.1" stroke="#EC4899" stroke-width="1"/>
+      <rect x="15" y="30" width="40" height="20" rx="2" fill="#EC4899" opacity="0.3"/>
+      <text x="35" y="43" text-anchor="middle" fill="#EC4899" font-family="Arial, sans-serif" font-size="6" font-weight="bold">Morphism</text>
+      
+      <text x="35" y="65" text-anchor="middle" fill="#374151" font-family="Arial, sans-serif" font-size="7" font-weight="bold">Glass Effect</text>
+      <text x="35" y="75" text-anchor="middle" fill="#6B7280" font-family="Arial, sans-serif" font-size="6">Blur & Transparency</text>
+    </g>
+    
+    <g transform="translate(-50, -50)">
+      <rect x="0" y="0" width="70" height="90" rx="8" fill="url(#trend)" stroke="#3B82F6" stroke-width="2"/>
+      <rect x="5" y="5" width="60" height="15" rx="3" fill="#3B82F6"/>
+      <text x="35" y="15" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="8" font-weight="bold">Gradients</text>
+      
+      <!-- Gradient example -->
+      <rect x="10" y="25" width="50" height="30" rx="4" fill="url(#gradient1)"/>
+      <text x="35" y="43" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="6" font-weight="bold">Multi-Color</text>
+      
+      <text x="35" y="65" text-anchor="middle" fill="#374151" font-family="Arial, sans-serif" font-size="7" font-weight="bold">Rich Colors</text>
+      <text x="35" y="75" text-anchor="middle" fill="#6B7280" font-family="Arial, sans-serif" font-size="6">Vibrant Blends</text>
+    </g>
+    
+    <g transform="translate(50, -50)">
+      <rect x="0" y="0" width="70" height="90" rx="8" fill="url(#trend)" stroke="#10B981" stroke-width="2"/>
+      <rect x="5" y="5" width="60" height="15" rx="3" fill="#10B981"/>
+      <text x="35" y="15" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="8" font-weight="bold">Minimal</text>
+      
+      <!-- Minimal example -->
+      <rect x="10" y="25" width="50" height="30" rx="4" fill="#F3F4F6" stroke="#E5E7EB" stroke-width="1"/>
+      <rect x="20" y="30" width="30" height="20" rx="2" fill="#10B981" opacity="0.8"/>
+      <text x="35" y="43" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="6" font-weight="bold">Clean</text>
+      
+      <text x="35" y="65" text-anchor="middle" fill="#374151" font-family="Arial, sans-serif" font-size="7" font-weight="bold">Simple Design</text>
+      <text x="35" y="75" text-anchor="middle" fill="#6B7280" font-family="Arial, sans-serif" font-size="6">Less is More</text>
+    </g>
+    
+    <g transform="translate(150, -50)">
+      <rect x="0" y="0" width="70" height="90" rx="8" fill="url(#trend)" stroke="#F59E0B" stroke-width="2"/>
+      <rect x="5" y="5" width="60" height="15" rx="3" fill="#F59E0B"/>
+      <text x="35" y="15" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="8" font-weight="bold">3D</text>
+      
+      <!-- 3D example -->
+      <rect x="10" y="25" width="50" height="30" rx="4" fill="#F3F4F6" stroke="#E5E7EB" stroke-width="1"/>
+      <rect x="20" y="30" width="30" height="20" rx="2" fill="#F59E0B" opacity="0.8"/>
+      <rect x="22" y="32" width="26" height="16" rx="1" fill="#F59E0B" opacity="0.6"/>
+      <text x="35" y="43" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="6" font-weight="bold">Depth</text>
+      
+      <text x="35" y="65" text-anchor="middle" fill="#374151" font-family="Arial, sans-serif" font-size="7" font-weight="bold">Dimensional</text>
+      <text x="35" y="75" text-anchor="middle" fill="#6B7280" font-family="Arial, sans-serif" font-size="6">Layered Effects</text>
+    </g>
+    
+    <!-- Year indicator -->
+    <g transform="translate(0, 60)">
+      <rect x="-40" y="0" width="80" height="25" rx="12" fill="#EC4899"/>
+      <text x="0" y="16" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="12" font-weight="bold">2025</text>
+    </g>
+    
+    <!-- Trend indicators -->
+    <g transform="translate(-180, 20)">
+      <circle cx="0" cy="0" r="12" fill="#8B5CF6" opacity="0.8"/>
+      <text x="0" y="3" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="8" font-weight="bold">🔥</text>
+    </g>
+    
+    <g transform="translate(180, 20)">
+      <circle cx="0" cy="0" r="12" fill="#EF4444" opacity="0.8"/>
+      <text x="0" y="3" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="8" font-weight="bold">⭐</text>
+    </g>
+    
+    <!-- Additional gradients -->
+    <defs>
+      <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#EC4899;stop-opacity:1" />
+        <stop offset="50%" style="stop-color:#3B82F6;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#10B981;stop-opacity:1" />
+      </linearGradient>
+    </defs>
+  </g>
+  
+  <!-- Title -->
+  <text x="400" y="280" text-anchor="middle" fill="#1F2937" font-family="Arial, sans-serif" font-size="24" font-weight="bold">Design Trends 2025</text>
+  
+  <!-- Subtitle -->
+  <text x="400" y="310" text-anchor="middle" fill="#6B7280" font-family="Arial, sans-serif" font-size="16">Stay Ahead with Latest Design Innovations</text>
+  
+  <!-- Decorative lines -->
+  <line x1="200" y1="330" x2="600" y2="330" stroke="#EC4899" stroke-width="2" opacity="0.3"/>
+  <line x1="250" y1="340" x2="550" y2="340" stroke="#EC4899" stroke-width="1" opacity="0.2"/>
+</svg>

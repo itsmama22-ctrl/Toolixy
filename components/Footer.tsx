@@ -10,7 +10,6 @@ const navigation = {
   company: [
     { name: 'About', href: '/about' },
     { name: 'Blog', href: '/blog' },
-    { name: 'Pricing', href: '/pricing' },
     { name: 'Contact', href: '/contact' },
   ],
   resources: [
@@ -55,7 +54,7 @@ export default function Footer() {
               <div className="w-8 h-8 bg-gradient-to-r from-primary-600 to-secondary-600 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-sm">M</span>
               </div>
-              <span className="text-xl font-bold">MultiTool</span>
+              <span className="text-xl font-bold">Toolisy</span>
             </div>
             <p className="text-gray-400 mb-6 leading-relaxed">
               Professional tools for marketers, designers, and entrepreneurs. 
@@ -147,7 +146,7 @@ export default function Footer() {
         <div className="border-t border-gray-800 pt-8 mt-12">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 text-sm text-gray-400">
-              <p>&copy; {new Date().getFullYear()} MultiTool SaaS. All rights reserved.</p>
+              <p>&copy; {new Date().getFullYear()} Toolisy SaaS. All rights reserved.</p>
               <div className="flex space-x-6">
                 {navigation.legal.map((item) => (
                   <Link

@@ -9,14 +9,14 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: {
-    default: 'MultiTool SaaS - Email Extractor & Color Palette Generator',
-    template: '%s | MultiTool SaaS'
+    default: 'Toolisy - Email Extractor & Color Palette Generator',
+    template: '%s | Toolisy'
   },
   description: 'Professional email extraction and color palette generation tools. Extract emails from websites and create beautiful color palettes for your projects.',
   keywords: ['email extractor', 'color palette generator', 'lead generation', 'design tools', 'marketing tools'],
-  authors: [{ name: 'MultiTool Team' }],
-  creator: 'MultiTool SaaS',
-  publisher: 'MultiTool SaaS',
+  authors: [{ name: 'Toolisy Team' }],
+  creator: 'Toolisy',
+  publisher: 'Toolisy',
   formatDetection: {
     email: false,
     address: false,
@@ -30,21 +30,21 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: '/',
-    title: 'MultiTool SaaS - Email Extractor & Color Palette Generator',
+    title: 'Toolisy - Email Extractor & Color Palette Generator',
     description: 'Professional email extraction and color palette generation tools. Extract emails from websites and create beautiful color palettes for your projects.',
-    siteName: 'MultiTool SaaS',
+    siteName: 'Toolisy',
     images: [
       {
         url: '/images/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'MultiTool SaaS - Professional Tools for Marketers and Designers',
+        alt: 'Toolisy - Professional Tools for Marketers and Designers',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'MultiTool SaaS - Email Extractor & Color Palette Generator',
+    title: 'Toolisy - Email Extractor & Color Palette Generator',
     description: 'Professional email extraction and color palette generation tools. Extract emails from websites and create beautiful color palettes for your projects.',
     images: ['/images/twitter-card.jpg'],
     creator: '@multitoolsaas',

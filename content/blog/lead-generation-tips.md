@@ -1,12 +1,12 @@
 ---
 title: "10 Proven Lead Generation Strategies for 2024"
-publishDate: "2024-01-24"
+publishDate: "2025-10-16"
 lastModified: "2024-01-24"
 tags: ["lead generation", "marketing", "sales", "growth", "strategy"]
 author:
   name: "Sarah Johnson"
-  avatar: "/images/authors/sarah-johnson.jpg"
-featuredImage: "/images/blog/lead-generation-tips.jpg"
+  avatar: "/images/authors/sarah-johnson.svg"
+featuredImage: "/images/blog/lead-generation-tips.svg"
 metaTitle: "10 Proven Lead Generation Strategies for 2024 - Boost Your Sales"
 metaDescription: "Discover 10 proven lead generation strategies that work in 2024. Learn how to attract, engage, and convert prospects into customers with these expert tips."
 keywords: ["lead generation", "sales leads", "marketing strategies", "customer acquisition", "growth hacking"]

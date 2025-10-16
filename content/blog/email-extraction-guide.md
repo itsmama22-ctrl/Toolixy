@@ -1,12 +1,12 @@
 ---
 title: "The Complete Guide to Email Extraction: Tools, Techniques, and Best Practices"
-publishDate: "2024-01-15"
+publishDate: "2025-10-16"
 lastModified: "2024-01-15"
 tags: ["email extraction", "lead generation", "marketing", "automation", "tools"]
 author:
   name: "Sarah Johnson"
-  avatar: "/images/authors/sarah-johnson.jpg"
-featuredImage: "/images/blog/email-extraction-guide.jpg"
+  avatar: "/images/authors/sarah-johnson.svg"
+featuredImage: "/images/blog/email-extraction-guide.svg"
 metaTitle: "Complete Guide to Email Extraction - Tools & Best Practices 2024"
 metaDescription: "Learn how to extract emails from websites effectively with our comprehensive guide. Discover the best tools, techniques, and legal considerations for email extraction."
 keywords: ["email extractor", "lead generation", "contact discovery", "marketing automation", "email scraping"]

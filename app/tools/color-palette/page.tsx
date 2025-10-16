@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import ColorPaletteGenerator from '@/components/ColorPaletteGenerator';
+import ColorPaletteGeneratorClient from '@/components/ColorPaletteGeneratorClient';
 import SEO from '@/components/SEO';
 
 export const metadata: Metadata = {
@@ -31,7 +31,7 @@ export default function ColorPalettePage() {
         url="/tools/color-palette"
         type="website"
       />
-      <ColorPaletteGenerator />
+          <ColorPaletteGeneratorClient />
     </>
   );
 }

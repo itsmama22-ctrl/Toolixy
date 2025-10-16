@@ -1,27 +1,7 @@
-// User and Authentication Types
-export interface User {
-  id: string;
-  email: string;
-  name: string;
-  plan: 'free' | 'pro';
-  createdAt: Date;
-  usage: {
-    emailExtractions: number;
-    paletteGenerations: number;
-    lastResetDate: Date;
-  };
-}
-
-export interface AuthState {
-  user: User | null;
-  isLoading: boolean;
-  isAuthenticated: boolean;
-}
 
 // Email Extractor Types
 export interface EmailExtractionRequest {
   url: string;
-  userId?: string;
 }
 
 export interface EmailExtractionResult {
@@ -31,7 +11,6 @@ export interface EmailExtractionResult {
   extractedAt: Date;
   status: 'success' | 'error';
   errorMessage?: string;
-  userId?: string;
 }
 
 export interface EmailExtractionHistory {
@@ -55,7 +34,6 @@ export interface ColorPalette {
   name: string;
   colors: Color[];
   createdAt: Date;
-  userId?: string;
   source?: 'manual' | 'image' | 'ai' | 'random';
   imageUrl?: string;
 }
@@ -66,7 +44,6 @@ export interface PaletteGenerationRequest {
   baseColor?: string;
   theme?: 'complementary' | 'triadic' | 'analogous' | 'monochromatic';
   count?: number;
-  userId?: string;
 }
 
 // Blog Types
@@ -95,23 +72,6 @@ export interface BlogPostPreview extends Omit<BlogPost, 'content'> {
   excerpt: string;
 }
 
-// Pricing and Plan Types
-export interface PricingPlan {
-  id: string;
-  name: string;
-  price: number;
-  interval: 'month' | 'year';
-  features: string[];
-  limits: {
-    emailExtractions: number;
-    paletteGenerations: number;
-    savedItems: number;
-    apiCalls: number;
-  };
-  popular?: boolean;
-  ctaText: string;
-  ctaUrl: string;
-}
 
 // API Response Types
 export interface ApiResponse<T = any> {
@@ -173,8 +133,6 @@ export interface TestimonialProps {
   rating?: number;
 }
 
-// Utility Types
-export type PlanType = 'free' | 'pro';
 
 export type ToolType = 'email-extractor' | 'color-palette';
 
@@ -193,7 +151,6 @@ export interface AppError {
 export interface AnalyticsEvent {
   event: string;
   properties?: Record<string, any>;
-  userId?: string;
   timestamp?: Date;
 }
 

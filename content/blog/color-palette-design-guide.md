@@ -1,12 +1,12 @@
 ---
 title: "Creating Perfect Color Palettes: A Designer's Guide to Color Harmony"
-publishDate: "2024-01-18"
+publishDate: "2025-10-15"
 lastModified: "2024-01-18"
 tags: ["color theory", "design", "branding", "ui/ux", "palettes"]
 author:
   name: "Michael Chen"
-  avatar: "/images/authors/michael-chen.jpg"
-featuredImage: "/images/blog/color-palette-design-guide.jpg"
+  avatar: "/images/authors/michael-chen.svg"
+featuredImage: "/images/blog/color-palette-design-guide.svg"
 metaTitle: "Perfect Color Palettes Guide - Color Theory & Design Principles 2024"
 metaDescription: "Master color theory and create stunning color palettes with our comprehensive designer's guide. Learn about color harmony, psychology, and practical application."
 keywords: ["color palette", "color theory", "design principles", "brand colors", "color harmony"]

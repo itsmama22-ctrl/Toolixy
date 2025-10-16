@@ -1,0 +1,15 @@
+node_modules
+.netlify
+.netlify.toml
+dist
+build
+*.log
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.DS_Store
+*.zip
+test-functions.zip
+toolisy-*.zip
+toolixy-*.zip
