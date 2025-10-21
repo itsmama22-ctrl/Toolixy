@@ -1,0 +1,106 @@
+name: 🤖 Auto Publish Blog Posts & Deploy
+
+on:
+  schedule:
+    # Run daily at 9:00 AM UTC (10:00 AM local time)
+    - cron: '0 9 * * *'
+  # Allow manual trigger from GitHub UI
+  workflow_dispatch:
+    inputs:
+      force_publish:
+        description: 'Force publish all due posts (ignore date checks)'
+        required: false
+        default: 'false'
+        type: boolean
+
+jobs:
+  auto-publish-and-deploy:
+    runs-on: ubuntu-latest
+    name: 📝 Publish Posts & 🚀 Deploy
+    
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # Use default GITHUB_TOKEN which has proper permissions
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: 📦 Install dependencies
+        run: npm ci
+
+      - name: 🔍 Check for scheduled posts
+        id: check-posts
+        run: |
+          echo "📅 Current date: $(date +'%Y-%m-%d')"
+          echo "🔍 Checking for scheduled posts..."
+          
+          # Run the auto-publish script and capture output
+          OUTPUT=$(npm run auto-publish 2>&1)
+          echo "📋 Auto-publish output:"
+          echo "$OUTPUT"
+          
+          # Check if any posts were published
+          if echo "$OUTPUT" | grep -q "Successfully published posts"; then
+            echo "posts_published=true" >> $GITHUB_OUTPUT
+            echo "✅ Posts were published"
+          else
+            echo "posts_published=false" >> $GITHUB_OUTPUT
+            echo "ℹ️ No posts were scheduled for publication today"
+          fi
+
+      - name: 📝 Commit and push changes
+        if: steps.check-posts.outputs.posts_published == 'true'
+        run: |
+          echo "📝 Committing published posts..."
+          
+          # Configure git
+          git config user.name "🤖 Blog Auto-Publisher"
+          git config user.email "actions@github.com"
+          
+          # Add all changed markdown files
+          git add content/blog/*.md
+          
+          # Check if there are changes to commit
+          if git diff --staged --quiet; then
+            echo "ℹ️ No changes to commit"
+          else
+            # Create commit with timestamp
+            COMMIT_MSG="🤖 Auto-published scheduled posts - $(date +'%Y-%m-%d %H:%M UTC')"
+            git commit -m "$COMMIT_MSG"
+            
+            # Push changes
+            git push origin main
+            echo "✅ Changes pushed successfully!"
+          fi
+
+      - name: 🚀 Deploy to Vercel
+        if: always() && (steps.check-posts.outputs.posts_published == 'true' || github.event_name == 'workflow_dispatch')
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: '--prod'
+        continue-on-error: true
+
+      - name: 📊 Post-deployment summary
+        if: always()
+        run: |
+          echo "## 📊 Auto-Publish Summary" >> $GITHUB_STEP_SUMMARY
+          echo "- **Date:** $(date +'%Y-%m-%d %H:%M UTC')" >> $GITHUB_STEP_SUMMARY
+          echo "- **Posts Published:** ${{ steps.check-posts.outputs.posts_published }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Deployment:** ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Trigger:** ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
+          
+          if [ "${{ steps.check-posts.outputs.posts_published }}" == "true" ]; then
+            echo "✅ **Success:** New posts published and deployed!" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "ℹ️ **Info:** No posts were scheduled for publication today." >> $GITHUB_STEP_SUMMARY
+          fi
