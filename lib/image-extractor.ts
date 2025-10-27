@@ -67,16 +67,19 @@ export async function extractColorsFromImage(
         // Extract all pixel colors
         const pixels: string[] = [];
         
-        for (let i = 0; i < data.length; i += 4) {
+        // Sample every 5th pixel for performance (skip every 4 pixels in row)
+        for (let i = 0; i < data.length; i += 20) {
           const r = data[i];
           const g = data[i + 1];
           const b = data[i + 2];
           const a = data[i + 3];
           
           // Only process visible pixels (alpha > 128)
-          if (a > 128) {
+          if (a > 128 && r !== undefined && g !== undefined && b !== undefined) {
             try {
-              const hex = chroma.rgb(r, g, b).hex();
+              // Simple RGB to HEX conversion
+              const toHex = (n: number) => Math.max(0, Math.min(255, n)).toString(16).padStart(2, '0');
+              const hex = `#${toHex(r)}${toHex(g)}${toHex(b)}`;
               pixels.push(hex);
             } catch (err) {
               // Skip invalid colors
