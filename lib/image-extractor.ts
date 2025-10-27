@@ -64,23 +64,32 @@ export async function extractColorsFromImage(
         
         console.log(`Processing ${data.length / 4} pixels`);
         
-        // Extract all pixel colors
+        // Extract all pixel colors with higher quality sampling
         const pixels: string[] = [];
         
-        // Sample every 5th pixel for performance (skip every 4 pixels in row)
-        for (let i = 0; i < data.length; i += 20) {
+        // Sample every 3rd pixel for better coverage (higher quality)
+        // This captures more subtle color variations and small regions
+        for (let i = 0; i < data.length; i += 12) {
           const r = data[i];
           const g = data[i + 1];
           const b = data[i + 2];
           const a = data[i + 3];
           
-          // Only process visible pixels (alpha > 128)
-          if (a > 128 && r !== undefined && g !== undefined && b !== undefined) {
+          // Process visible pixels (alpha > 100 to catch subtle transparencies)
+          if (a > 100 && r !== undefined && g !== undefined && b !== undefined) {
             try {
               // Simple RGB to HEX conversion
               const toHex = (n: number) => Math.max(0, Math.min(255, n)).toString(16).padStart(2, '0');
               const hex = `#${toHex(r)}${toHex(g)}${toHex(b)}`;
-              pixels.push(hex);
+              
+              // Include even subtle tones (near-white, near-black)
+              // Only exclude extremely bright whites (#F8F8F8 and above) and pure blacks
+              const isNearWhite = r > 248 && g > 248 && b > 248;
+              const isPureBlack = r === 0 && g === 0 && b === 0;
+              
+              if (!isNearWhite && !isPureBlack) {
+                pixels.push(hex);
+              }
             } catch (err) {
               // Skip invalid colors
               console.warn('Skipping invalid color:', r, g, b);
@@ -160,11 +169,13 @@ function getOptimalDistinctColors(pixels: string[], count: number): string[] {
         const groupHsl = group.color.hsl();
         
         // Use multiple metrics for better matching
-        const deltaE = Math.abs(lab[0] - groupLab[0]);
+        const lightnessDiff = Math.abs(lab[0] - groupLab[0]);
         const hueDiff = Math.abs(hsl[0] - groupHsl[0]);
+        const satDiff = Math.abs(hsl[1] - groupHsl[1]);
         
-        // More lenient matching to allow more groups
-        if (deltaE < 40 && Math.min(hueDiff, 360 - hueDiff) < 30) {
+        // More lenient matching to preserve subtle color differences
+        // Reduced threshold to allow more color groups
+        if (lightnessDiff < 50 && Math.min(hueDiff, 360 - hueDiff) < 35 && satDiff < 0.3) {
           group.pixels.push(color);
           group.frequency++;
           foundGroup = true;
@@ -191,7 +202,7 @@ function getOptimalDistinctColors(pixels: string[], count: number): string[] {
   
   // Select the most representative color from each group
   const selectedColors: string[] = [];
-  const minDistance = 25; // Minimum color distance to avoid duplicates
+  const minDistance = 20; // Lower threshold to allow more colors
   
   for (const group of colorGroups) {
     if (selectedColors.length >= count) break;
@@ -205,13 +216,23 @@ function getOptimalDistinctColors(pixels: string[], count: number): string[] {
         const existingColor = chroma(existingHex);
         const currentLab = currentColor.lab();
         const existingLab = existingColor.lab();
+        
+        // Calculate L*a*b* distance
         const distance = Math.sqrt(
           Math.pow(currentLab[0] - existingLab[0], 2) +
           Math.pow(currentLab[1] - existingLab[1], 2) +
           Math.pow(currentLab[2] - existingLab[2], 2)
         );
         
-        if (distance < minDistance) {
+        // Also check if they're similar in hue and lightness
+        const hue1 = currentColor.hsl()[0];
+        const hue2 = existingColor.hsl()[0];
+        const lightness1 = currentLab[0];
+        const lightness2 = existingLab[0];
+        
+        // More complex distinctness check
+        if (distance < minDistance || 
+            (Math.abs(lightness1 - lightness2) < 15 && Math.min(Math.abs(hue1 - hue2), 360 - Math.abs(hue1 - hue2)) < 20)) {
           isDistinct = false;
           break;
         }
@@ -222,6 +243,18 @@ function getOptimalDistinctColors(pixels: string[], count: number): string[] {
     
     if (isDistinct) {
       selectedColors.push(currentColor.hex());
+    }
+  }
+  
+  // Fill remaining slots if we don't have enough distinct colors
+  if (selectedColors.length < count && colorGroups.length > selectedColors.length) {
+    for (const group of colorGroups) {
+      if (selectedColors.length >= count) break;
+      
+      const candidateColor = group.color.hex();
+      if (!selectedColors.includes(candidateColor)) {
+        selectedColors.push(candidateColor);
+      }
     }
   }
   
