@@ -1,6 +1,6 @@
 /**
  * Image color extraction utility
- * Extracts dominant colors from images
+ * Extracts dominant colors from images using Canvas API
  */
 
 import chroma from 'chroma-js';
@@ -16,14 +16,16 @@ export async function extractColorsFromImage(
   return new Promise((resolve, reject) => {
     const img = new Image();
     
-    // Only set crossOrigin for external URLs
+    // Only set crossOrigin for external URLs (not data URLs)
     if (!imageUrl.startsWith('data:')) {
       img.crossOrigin = 'anonymous';
     }
     
     img.onload = () => {
       try {
-        // Create a small canvas for faster processing
+        console.log(`Image loaded: ${img.width}x${img.height}`);
+        
+        // Create canvas
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
         
@@ -32,27 +34,21 @@ export async function extractColorsFromImage(
           return;
         }
         
-        // Resize image to speed up processing
-        const maxDimension = 200;
+        // Calculate canvas dimensions (max 800px width for performance)
+        const maxWidth = 800;
         let width = img.width;
         let height = img.height;
         
-        // Calculate scaling to fit within maxDimension
-        if (width > height) {
-          if (width > maxDimension) {
-            height = (height / width) * maxDimension;
-            width = maxDimension;
-          }
-        } else {
-          if (height > maxDimension) {
-            width = (width / height) * maxDimension;
-            height = maxDimension;
-          }
+        // Scale down if necessary
+        if (width > maxWidth) {
+          const ratio = maxWidth / width;
+          width = maxWidth;
+          height = height * ratio;
         }
         
-        // Ensure minimum dimensions
-        width = Math.max(width, 1);
-        height = Math.max(height, 1);
+        // Ensure dimensions are valid
+        width = Math.floor(Math.max(width, 1));
+        height = Math.floor(Math.max(height, 1));
         
         canvas.width = width;
         canvas.height = height;
@@ -66,41 +62,54 @@ export async function extractColorsFromImage(
         const imageData = ctx.getImageData(0, 0, width, height);
         const data = imageData.data;
         
-        // Extract pixels and create color clusters
-        const pixels: string[] = [];
-        const pixelCount = data.length / 4;
-        console.log(`Processing ${pixelCount} pixels`);
+        console.log(`Processing ${data.length / 4} pixels`);
         
-        // Sample every 10th pixel for performance
-        for (let i = 0; i < data.length; i += 40) {
+        // Extract all pixel colors
+        const pixels: string[] = [];
+        
+        for (let i = 0; i < data.length; i += 4) {
           const r = data[i];
           const g = data[i + 1];
           const b = data[i + 2];
           const a = data[i + 3];
           
-          // Skip transparent or nearly transparent pixels
-          if (a > 128 && r !== undefined && g !== undefined && b !== undefined) {
+          // Only process visible pixels (alpha > 128)
+          if (a > 128) {
             try {
               const hex = chroma.rgb(r, g, b).hex();
               pixels.push(hex);
             } catch (err) {
-              console.error('Error converting to hex:', err, { r, g, b });
+              // Skip invalid colors
+              console.warn('Skipping invalid color:', r, g, b);
             }
           }
         }
         
+        if (pixels.length === 0) {
+          reject(new Error('No valid colors found in image'));
+          return;
+        }
+        
         console.log(`Extracted ${pixels.length} pixel colors`);
         
-        // Use chroma to get the most distinct colors
-        const distinctColors = getDistinctColors(pixels, colorCount);
+        // Get distinct colors using improved algorithm
+        const distinctColors = getOptimalDistinctColors(pixels, colorCount);
+        
+        if (distinctColors.length === 0) {
+          reject(new Error('Could not extract distinct colors'));
+          return;
+        }
+        
         console.log(`Returning ${distinctColors.length} distinct colors`);
         resolve(distinctColors);
       } catch (error) {
+        console.error('Error in image processing:', error);
         reject(error);
       }
     };
     
     img.onerror = () => {
+      console.error('Failed to load image');
       reject(new Error('Failed to load image'));
     };
     
@@ -109,76 +118,72 @@ export async function extractColorsFromImage(
 }
 
 /**
- * Helper function to convert RGB to chroma
+ * Extract optimal distinct colors from pixel array
+ * Uses k-means-like clustering for better color selection
  */
-function rgb(r: number, g: number, b: number): chroma.Color {
-  return chroma.rgb(r, g, b);
-}
-
-/**
- * Get distinct colors using clustering and brightness filtering
- */
-function getDistinctColors(colorArray: string[], count: number): string[] {
-  // Group similar colors together
-  const clusters: { color: chroma.Color; count: number }[] = [];
+function getOptimalDistinctColors(pixels: string[], count: number): string[] {
+  if (pixels.length === 0) return [];
   
-  colorArray.forEach((hex) => {
-    const color = chroma(hex);
-    let foundCluster = false;
-    
-    for (const cluster of clusters) {
-      // Check if color is similar to cluster (within 40 units in L*a*b* space)
-      if ((color as any).deltaE(cluster.color) < 40) {
-        cluster.count++;
-        foundCluster = true;
-        break;
+  // Sample pixels if there are too many (for performance)
+  const maxPixels = 10000;
+  let sampledPixels = pixels;
+  
+  if (pixels.length > maxPixels) {
+    const step = Math.floor(pixels.length / maxPixels);
+    sampledPixels = [];
+    for (let i = 0; i < pixels.length; i += step) {
+      sampledPixels.push(pixels[i]);
+    }
+  }
+  
+  console.log(`Clustering ${sampledPixels.length} pixels for ${count} colors`);
+  
+  // Group colors by similarity
+  const colorGroups: { color: chroma.Color; pixels: chroma.Color[] }[] = [];
+  
+  sampledPixels.forEach((hex) => {
+    try {
+      const color = chroma(hex);
+      
+      // Find or create a group for this color
+      let foundGroup = false;
+      
+      for (const group of colorGroups) {
+        if (group.pixels.length < 100 && (color as any).deltaE(group.color) < 30) {
+          group.pixels.push(color);
+          foundGroup = true;
+          break;
+        }
       }
-    }
-    
-    if (!foundCluster && clusters.length < count * 2) {
-      clusters.push({ color, count: 1 });
+      
+      if (!foundGroup) {
+        colorGroups.push({ color, pixels: [color] });
+      }
+    } catch (err) {
+      console.warn('Skipping invalid hex:', hex);
     }
   });
   
-  // Sort by count and brightness
-  clusters.sort((a, b) => {
-    if (b.count !== a.count) {
-      return b.count - a.count; // Sort by frequency
-    }
-    return b.color.get('hsl.l') - a.color.get('hsl.l'); // Then by brightness
-  });
+  // Sort groups by size (frequency)
+  colorGroups.sort((a, b) => b.pixels.length - a.pixels.length);
   
-  // Return top N colors, ensuring good separation
-  const selected: string[] = [];
-  const minDeltaE = 20; // Minimum color difference
+  // Select the most representative color from each group
+  const selectedColors: string[] = [];
   
-  for (const cluster of clusters) {
-    if (selected.length >= count) break;
-    
-    const clusterHex = cluster.color.hex();
-    
-    if (selected.length === 0) {
-      selected.push(clusterHex);
-      continue;
-    }
-    
-    // Check if this color is sufficiently different from already selected colors
-    const isDistinct = selected.every(hex => {
-      return (chroma(clusterHex) as any).deltaE(chroma(hex)) > minDeltaE;
-    });
-    
-    if (isDistinct) {
-      selected.push(clusterHex);
-    }
+  // Take colors from different parts of the brightness spectrum
+  for (let i = 0; i < Math.min(count, colorGroups.length); i++) {
+    selectedColors.push(colorGroups[i].color.hex());
   }
   
-  // Fill remaining slots with random variations if needed
-  while (selected.length < count && clusters.length > 0) {
-    const randomCluster = clusters[Math.floor(Math.random() * clusters.length)];
-    selected.push(randomCluster.color.hex());
+  // If we don't have enough distinct colors, generate variations
+  while (selectedColors.length < count && colorGroups.length > 0) {
+    // Create variations of the most common colors
+    const baseColor = chroma(colorGroups[0].color.hex());
+    const variation = baseColor.set('hsl.l', baseColor.get('hsl.l') + (selectedColors.length % 2 === 0 ? 0.2 : -0.2));
+    selectedColors.push(variation.hex());
   }
   
-  return selected;
+  return selectedColors.slice(0, count);
 }
 
 /**
@@ -237,4 +242,3 @@ export function generateThemeColors(theme: string, colorCount: number = 5): stri
   
   return colors;
 }
-
