@@ -42,7 +42,7 @@ export const trackEmailExtraction = (url: string, emailCount: number, success: b
 };
 
 // Track color palette generation events
-export const trackColorPaletteGeneration = (method: 'random' | 'image' | 'base_color', paletteSize: number) => {
+export const trackColorPaletteGeneration = (method: 'random' | 'image' | 'base_color' | string, paletteSize: number) => {
   if (typeof window !== 'undefined' && window.gtag) {
     window.gtag('event', 'color_palette_generation', {
       event_category: 'color_palette',
