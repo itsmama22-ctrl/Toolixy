@@ -35,6 +35,9 @@ jobs:
       - name: 📦 Install dependencies
         run: npm ci
 
+      - name: 🔍 Validate blog posts
+        run: node scripts/validate-before-deploy.js
+
       - name: 🔍 Check for scheduled posts
         id: check-posts
         run: |
