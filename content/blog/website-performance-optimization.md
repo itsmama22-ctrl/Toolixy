@@ -1,7 +1,7 @@
 ---
 title: "Website Performance Optimization: Speed Up Your Site for Better Results"
 publishDate: "2025-10-17"
-lastModified: "2025-02-14"
+lastModified: "2025-10-24"
 tags: ["website performance", "speed optimization", "core web vitals", "SEO", "user experience"]
 author:
   name: "Sarah Johnson"
@@ -10,7 +10,17 @@ featuredImage: "/images/blog/website-performance-optimization.svg"
 metaTitle: "Website Performance Optimization 2025 - Speed Up Your Site"
 metaDescription: "Optimize your website performance with our comprehensive guide. Learn Core Web Vitals, speed optimization techniques, and tools for better results."
 keywords: ["website performance", "page speed", "core web vitals", "performance optimization", "website speed", "loading time"]
+readingTime: "7"
+canonical: "https://toolixy.vercel.app/blog/website-performance-optimization"
+openGraph: {"type":"article","title":"Website Performance Optimization 2025 - Speed Up Your Site","description":"Optimize your website performance with our comprehensive guide. Learn Core Web Vitals, speed optimization techniques, and tools for better results.","image":"/images/blog/website-performance-optimization.svg","url":"https://toolixy.vercel.app/blog/website-performance-optimization","siteName":"toolixy","locale":"en_US"}
+twitter: {"card":"summary_large_image","title":"Website Performance Optimization 2025 - Speed Up Your Site","description":"Optimize your website performance with our comprehensive guide. Learn Core Web Vitals, speed optimization techniques, and tools for better results.","image":"/images/blog/website-performance-optimization.svg","creator":"@toolixy","site":"@toolixy"}
+schema: {"@context":"https://schema.org","@type":"Article","headline":"Website Performance Optimization: Speed Up Your Site for Better Results","description":"Optimize your website performance with our comprehensive guide. Learn Core Web Vitals, speed optimization techniques, and tools for better results.","image":"/images/blog/website-performance-optimization.svg","author":{"@type":"Person","name":"Sarah Johnson"},"publisher":{"@type":"Organization","name":"toolixy","logo":{"@type":"ImageObject","url":"https://toolixy.com/logo.png"}},"datePublished":"2025-10-17","dateModified":"2025-02-14","mainEntityOfPage":{"@type":"WebPage","@id":"https://toolixy.vercel.app/blog/website-performance-optimization"}}
+excerpt: "Website Performance Optimization: Speed Up Your Site for Better Results Website performance directly impacts user experience, SEO rankings, and conversion..."
 ---
+
+
+
+
 
 # Website Performance Optimization: Speed Up Your Site for Better Results
 

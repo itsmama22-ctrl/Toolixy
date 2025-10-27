@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import ColorPaletteGeneratorClient from '@/components/ColorPaletteGeneratorClient';
 import SEO from '@/components/SEO';
+import Breadcrumb from '@/components/Breadcrumb';
 
 export const metadata: Metadata = {
   title: 'Color Palette Generator - Create Beautiful Color Schemes | MultiTool SaaS',
@@ -31,7 +32,10 @@ export default function ColorPalettePage() {
         url="/tools/color-palette"
         type="website"
       />
-          <ColorPaletteGeneratorClient />
+      <div className="max-w-6xl mx-auto px-6 py-4">
+        <Breadcrumb className="mb-6" />
+      </div>
+      <ColorPaletteGeneratorClient />
     </>
   );
 }

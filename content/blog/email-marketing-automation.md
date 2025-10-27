@@ -1,7 +1,7 @@
 ---
 title: "Email Marketing Automation: Complete Guide to Automated Campaigns"
 publishDate: "2025-10-16"
-lastModified: "2025-02-03"
+lastModified: "2025-10-24"
 tags: ["email marketing", "automation", "email campaigns", "marketing automation", "lead nurturing"]
 author:
   name: "Alex Rodriguez"
@@ -10,7 +10,17 @@ featuredImage: "/images/blog/email-marketing-automation.svg"
 metaTitle: "Email Marketing Automation Guide 2025 - Automated Campaigns & Workflows"
 metaDescription: "Master email marketing automation with our complete guide. Learn to create automated campaigns, nurture leads, and boost conversions with proven strategies."
 keywords: ["email marketing automation", "automated email campaigns", "email workflows", "lead nurturing", "email drip campaigns", "marketing automation"]
+readingTime: "7"
+canonical: "https://toolixy.vercel.app/blog/email-marketing-automation"
+openGraph: {"type":"article","title":"Email Marketing Automation Guide 2025 - Automated Campaigns & Workflows","description":"Master email marketing automation with our complete guide. Learn to create automated campaigns, nurture leads, and boost conversions with proven strategies.","image":"/images/blog/email-marketing-automation.svg","url":"https://toolixy.vercel.app/blog/email-marketing-automation","siteName":"toolixy","locale":"en_US"}
+twitter: {"card":"summary_large_image","title":"Email Marketing Automation Guide 2025 - Automated Campaigns & Workflows","description":"Master email marketing automation with our complete guide. Learn to create automated campaigns, nurture leads, and boost conversions with proven strategies.","image":"/images/blog/email-marketing-automation.svg","creator":"@toolixy","site":"@toolixy"}
+schema: {"@context":"https://schema.org","@type":"Article","headline":"Email Marketing Automation: Complete Guide to Automated Campaigns","description":"Master email marketing automation with our complete guide. Learn to create automated campaigns, nurture leads, and boost conversions with proven strategies.","image":"/images/blog/email-marketing-automation.svg","author":{"@type":"Person","name":"Alex Rodriguez"},"publisher":{"@type":"Organization","name":"toolixy","logo":{"@type":"ImageObject","url":"https://toolixy.com/logo.png"}},"datePublished":"2025-10-16","dateModified":"2025-02-03","mainEntityOfPage":{"@type":"WebPage","@id":"https://toolixy.vercel.app/blog/email-marketing-automation"}}
+excerpt: "Email Marketing Automation: Complete Guide to Automated Campaigns Email marketing automation is revolutionizing how businesses communicate with their audience...."
 ---
+
+
+
+
 
 # Email Marketing Automation: Complete Guide to Automated Campaigns
 

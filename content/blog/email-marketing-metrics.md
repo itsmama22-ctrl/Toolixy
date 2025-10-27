@@ -1,7 +1,7 @@
 ---
 title: "Email Marketing Metrics: Track Performance and Optimize Campaigns"
 publishDate: "2025-10-16"
-lastModified: "2025-02-11"
+lastModified: "2025-10-24"
 tags: ["email marketing", "analytics", "metrics", "campaign optimization", "performance tracking"]
 author:
   name: "Sarah Johnson"
@@ -10,7 +10,17 @@ featuredImage: "/images/blog/email-marketing-metrics.svg"
 metaTitle: "Email Marketing Metrics 2025 - Track Performance & Optimize Campaigns"
 metaDescription: "Master email marketing metrics with our comprehensive guide. Learn how to track performance, analyze data, and optimize your email campaigns for better results."
 keywords: ["email marketing metrics", "email analytics", "campaign performance", "email ROI", "open rates", "click rates"]
+readingTime: "8"
+canonical: "https://toolixy.vercel.app/blog/email-marketing-metrics"
+openGraph: {"type":"article","title":"Email Marketing Metrics 2025 - Track Performance & Optimize Campaigns","description":"Master email marketing metrics with our comprehensive guide. Learn how to track performance, analyze data, and optimize your email campaigns for better results.","image":"/images/blog/email-marketing-metrics.svg","url":"https://toolixy.vercel.app/blog/email-marketing-metrics","siteName":"toolixy","locale":"en_US"}
+twitter: {"card":"summary_large_image","title":"Email Marketing Metrics 2025 - Track Performance & Optimize Campaigns","description":"Master email marketing metrics with our comprehensive guide. Learn how to track performance, analyze data, and optimize your email campaigns for better results.","image":"/images/blog/email-marketing-metrics.svg","creator":"@toolixy","site":"@toolixy"}
+schema: {"@context":"https://schema.org","@type":"Article","headline":"Email Marketing Metrics: Track Performance and Optimize Campaigns","description":"Master email marketing metrics with our comprehensive guide. Learn how to track performance, analyze data, and optimize your email campaigns for better results.","image":"/images/blog/email-marketing-metrics.svg","author":{"@type":"Person","name":"Sarah Johnson"},"publisher":{"@type":"Organization","name":"toolixy","logo":{"@type":"ImageObject","url":"https://toolixy.com/logo.png"}},"datePublished":"2025-10-16","dateModified":"2025-02-11","mainEntityOfPage":{"@type":"WebPage","@id":"https://toolixy.vercel.app/blog/email-marketing-metrics"}}
+excerpt: "Email Marketing Metrics: Track Performance and Optimize Campaigns Understanding and tracking the right email marketing metrics is crucial for campaign success...."
 ---
+
+
+
+
 
 # Email Marketing Metrics: Track Performance and Optimize Campaigns
 

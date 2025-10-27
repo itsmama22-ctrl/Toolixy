@@ -1,16 +1,26 @@
 ---
 title: "Creating Perfect Color Palettes: A Designer's Guide to Color Harmony"
 publishDate: "2025-10-15"
-lastModified: "2024-01-18"
+lastModified: "2025-10-24"
 tags: ["color theory", "design", "branding", "ui/ux", "palettes"]
 author:
   name: "Michael Chen"
   avatar: "/images/authors/michael-chen.svg"
 featuredImage: "/images/blog/color-palette-design-guide.svg"
 metaTitle: "Perfect Color Palettes Guide - Color Theory & Design Principles 2024"
-metaDescription: "Master color theory and create stunning color palettes with our comprehensive designer's guide. Learn about color harmony, psychology, and practical application."
+metaDescription: "Master color theory and create stunning color palettes with our comprehensive designer's guide. Learn about color harmony, psychology, and practical applicat..."
 keywords: ["color palette", "color theory", "design principles", "brand colors", "color harmony"]
+readingTime: "6"
+canonical: "https://toolixy.vercel.app/blog/color-palette-design-guide"
+openGraph: {"type":"article","title":"Perfect Color Palettes Guide - Color Theory & Design Principles 2024","description":"Master color theory and create stunning color palettes with our comprehensive designer's guide. Learn about color harmony, psychology, and practical application.","image":"/images/blog/color-palette-design-guide.svg","url":"https://toolixy.vercel.app/blog/color-palette-design-guide","siteName":"toolixy","locale":"en_US"}
+twitter: {"card":"summary_large_image","title":"Perfect Color Palettes Guide - Color Theory & Design Principles 2024","description":"Master color theory and create stunning color palettes with our comprehensive designer's guide. Learn about color harmony, psychology, and practical application.","image":"/images/blog/color-palette-design-guide.svg","creator":"@toolixy","site":"@toolixy"}
+schema: {"@context":"https://schema.org","@type":"Article","headline":"Creating Perfect Color Palettes: A Designer's Guide to Color Harmony","description":"Master color theory and create stunning color palettes with our comprehensive designer's guide. Learn about color harmony, psychology, and practical application.","image":"/images/blog/color-palette-design-guide.svg","author":{"@type":"Person","name":"Michael Chen"},"publisher":{"@type":"Organization","name":"toolixy","logo":{"@type":"ImageObject","url":"https://toolixy.com/logo.png"}},"datePublished":"2025-10-15","dateModified":"2024-01-18","mainEntityOfPage":{"@type":"WebPage","@id":"https://toolixy.vercel.app/blog/color-palette-design-guide"}}
+excerpt: "Creating Perfect Color Palettes: A Designer's Guide to Color Harmony Color is one of the most powerful tools in a designer's arsenal. It can evoke emotions,..."
 ---
+
+
+
+
 
 # Creating Perfect Color Palettes: A Designer's Guide to Color Harmony
 

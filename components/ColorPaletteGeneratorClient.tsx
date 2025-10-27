@@ -1,12 +1,14 @@
 'use client';
 
-import React, { useState, useCallback, useRef } from 'react';
-import { Palette, Upload, Download, Copy, RefreshCw, Image, Loader2, Eye, Sparkles } from 'lucide-react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
+import { Palette, Upload, Download, Copy, RefreshCw, Image, Loader2, Eye, Sparkles, HelpCircle } from 'lucide-react';
+import { ColorPaletteSkeleton } from './LoadingSkeleton';
 import { ChromePicker } from 'react-color';
 import { useDropzone } from 'react-dropzone';
 import toast from 'react-hot-toast';
 import { saveAs } from 'file-saver';
 import type { Color } from '@/types';
+import { trackColorPaletteGeneration, trackToolUsage, trackFileDownload, trackError } from '@/lib/analytics';
 import { 
   copyToClipboard, 
   generateRandomColor, 
@@ -135,6 +137,37 @@ const hslToRgb = (h: number, s: number, l: number): { r: number; g: number; b: n
   };
 };
 
+// Simple Tooltip Component
+const Tooltip = ({ children, content, position = 'top' }: { children: React.ReactNode; content: string; position?: 'top' | 'bottom' | 'left' | 'right' }) => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  return (
+    <div 
+      className="relative inline-block"
+      onMouseEnter={() => setIsVisible(true)}
+      onMouseLeave={() => setIsVisible(false)}
+    >
+      {children}
+      {isVisible && (
+        <div className={`absolute z-50 px-2 py-1 text-xs text-white bg-gray-900 rounded shadow-lg whitespace-nowrap ${
+          position === 'top' ? 'bottom-full left-1/2 -translate-x-1/2 mb-1' :
+          position === 'bottom' ? 'top-full left-1/2 -translate-x-1/2 mt-1' :
+          position === 'left' ? 'right-full top-1/2 -translate-y-1/2 mr-1' :
+          'left-full top-1/2 -translate-y-1/2 ml-1'
+        }`}>
+          {content}
+          <div className={`absolute w-0 h-0 border-4 border-transparent ${
+            position === 'top' ? 'top-full left-1/2 -translate-x-1/2 border-t-gray-900' :
+            position === 'bottom' ? 'bottom-full left-1/2 -translate-x-1/2 border-b-gray-900' :
+            position === 'left' ? 'left-full top-1/2 -translate-y-1/2 border-l-gray-900' :
+            'right-full top-1/2 -translate-y-1/2 border-r-gray-900'
+          }`}></div>
+        </div>
+      )}
+    </div>
+  );
+};
+
 interface ColorPaletteGeneratorClientProps {}
 
 export default function ColorPaletteGeneratorClient({}: ColorPaletteGeneratorClientProps) {
@@ -151,61 +184,154 @@ export default function ColorPaletteGeneratorClient({}: ColorPaletteGeneratorCli
   const colorPickerRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  // Close color picker when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (colorPickerRef.current && !colorPickerRef.current.contains(event.target as Node)) {
+        setShowColorPicker(false);
+      }
+    };
+
+    if (showColorPicker) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showColorPicker]);
+
+  // Keyboard shortcuts
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      // Ctrl+R or Cmd+R for random palette
+      if ((event.ctrlKey || event.metaKey) && event.key === 'r') {
+        event.preventDefault();
+        if (!isLoading) {
+          // Call the function directly to avoid dependency issues
+          setIsLoading(true);
+          setTimeout(() => {
+            const colors: Color[] = [];
+            for (let i = 0; i < colorCount; i++) {
+              const hex = generateRandomColor();
+              const rgb = hexToRgb(hex);
+              
+              if (rgb) {
+                const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
+                
+                colors.push({
+                  hex,
+                  rgb,
+                  hsl,
+                  name: `Color ${i + 1}`
+                });
+              }
+            }
+            
+            setPalette(colors);
+            setVariations(null);
+            setImagePreview(null);
+            setExtractedImageColors([]);
+            
+            // Track palette generation
+            trackColorPaletteGeneration('random', colorCount);
+            trackToolUsage('color_palette', 'generate_random', { palette_size: colorCount });
+            
+            toast.success(`Generated ${colorCount} random colors!`);
+            setIsLoading(false);
+          }, 500);
+        }
+      }
+      // Escape to close color picker
+      if (event.key === 'Escape') {
+        setShowColorPicker(false);
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [colorCount, isLoading]);
+
 
   // Generate random palette
   const generateRandomPalette = useCallback(() => {
-
-    const colors: Color[] = [];
-    for (let i = 0; i < colorCount; i++) {
-      const hex = generateRandomColor();
-      const rgb = hexToRgb(hex);
-      
-      if (rgb) {
-        const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
-        
-        colors.push({
-          hex,
-          rgb,
-          hsl,
-          name: `Color ${i + 1}`
-        });
-      }
-    }
+    setIsLoading(true);
     
-    setPalette(colors);
-    setVariations(null); // Clear variations for random palette
-    toast.success(`Generated ${colorCount} random colors!`);
-  }, [colorCount, false]);
+    // Simulate a small delay for better UX
+    setTimeout(() => {
+      const colors: Color[] = [];
+      for (let i = 0; i < colorCount; i++) {
+        const hex = generateRandomColor();
+        const rgb = hexToRgb(hex);
+        
+        if (rgb) {
+          const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
+          
+          colors.push({
+            hex,
+            rgb,
+            hsl,
+            name: `Color ${i + 1}`
+          });
+        }
+      }
+      
+      setPalette(colors);
+      setVariations(null); // Clear variations for random palette
+      setImagePreview(null); // Clear image preview
+      setExtractedImageColors([]); // Clear extracted colors
+      toast.success(`Generated ${colorCount} random colors!`);
+      setIsLoading(false);
+    }, 500);
+  }, [colorCount]);
 
   // Generate palette from base color
   const generateFromBaseColor = useCallback((baseColor: string) => {
-
+    setIsLoading(true);
+    
     const baseRgb = hexToRgb(baseColor);
     if (!baseRgb) {
       toast.error('Invalid base color');
+      setIsLoading(false);
       return;
     }
 
-    const generatedVariations = generateColorVariations([{ hex: baseColor, rgb: baseRgb, hsl: rgbToHsl(baseRgb.r, baseRgb.g, baseRgb.b), name: 'Base Color' }]);
-    
-    const colors: Color[] = [];
-    colors.push({ hex: baseColor, rgb: baseRgb, hsl: rgbToHsl(baseRgb.r, baseRgb.g, baseRgb.b), name: 'Base Color' });
-    
-    // Add some variations to the main palette for display
-    if (generatedVariations.analogous && generatedVariations.analogous.length > 0) {
-      colors.push(generatedVariations.analogous[0]);
-    }
-    if (generatedVariations.complementary && generatedVariations.complementary.length > 0) {
-      colors.push(generatedVariations.complementary[0]);
-    }
-    if (generatedVariations.triadic && generatedVariations.triadic.length > 0) {
-      colors.push(generatedVariations.triadic[0]);
-    }
-    
-    setPalette(colors.slice(0, colorCount)); // Limit to colorCount
-    setVariations(generatedVariations);
-    toast.success(`Generated palette from ${baseColor}!`);
-  }, [colorCount, false]);
+    // Simulate a small delay for better UX
+    setTimeout(() => {
+      const generatedVariations = generateColorVariations([{ hex: baseColor, rgb: baseRgb, hsl: rgbToHsl(baseRgb.r, baseRgb.g, baseRgb.b), name: 'Base Color' }]);
+      
+      const colors: Color[] = [];
+      colors.push({ hex: baseColor, rgb: baseRgb, hsl: rgbToHsl(baseRgb.r, baseRgb.g, baseRgb.b), name: 'Base Color' });
+      
+      // Add some variations to the main palette for display
+      if (generatedVariations.analogous && generatedVariations.analogous.length > 0) {
+        colors.push(generatedVariations.analogous[0]);
+      }
+      if (generatedVariations.complementary && generatedVariations.complementary.length > 0) {
+        colors.push(generatedVariations.complementary[0]);
+      }
+      if (generatedVariations.triadic && generatedVariations.triadic.length > 0) {
+        colors.push(generatedVariations.triadic[0]);
+      }
+      
+      setPalette(colors.slice(0, colorCount)); // Limit to colorCount
+      setVariations(generatedVariations);
+      setImagePreview(null); // Clear image preview
+      setExtractedImageColors([]); // Clear extracted colors
+      
+      // Track palette generation
+      trackColorPaletteGeneration('base_color', colorCount);
+      trackToolUsage('color_palette', 'generate_from_base', { 
+        palette_size: colorCount,
+        base_color: baseColor 
+      });
+      
+      toast.success(`Generated palette from ${baseColor}!`);
+      setIsLoading(false);
+    }, 500);
+  }, [colorCount]);
 
   // Handle image upload and color extraction (client-side)
   const onDrop = useCallback(async (acceptedFiles: File[]) => {
@@ -240,27 +366,32 @@ export default function ColorPaletteGeneratorClient({}: ColorPaletteGeneratorCli
         const imageData = ctx?.getImageData(0, 0, canvas.width, canvas.height);
         if (!imageData) return;
         
-        // Simple color extraction - get dominant colors
+        // Improved color extraction - get dominant colors
         const colors: { [key: string]: number } = {};
         const data = imageData.data;
         
-        // Sample every 10th pixel for performance
-        for (let i = 0; i < data.length; i += 40) {
+        // Sample every 5th pixel for better accuracy
+        for (let i = 0; i < data.length; i += 20) {
           const r = data[i];
           const g = data[i + 1];
           const b = data[i + 2];
           const a = data[i + 3];
           
           if (a > 128) { // Skip transparent pixels
-            const hex = `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+            // Quantize colors to reduce noise
+            const quantizedR = Math.round(r / 16) * 16;
+            const quantizedG = Math.round(g / 16) * 16;
+            const quantizedB = Math.round(b / 16) * 16;
+            
+            const hex = `#${quantizedR.toString(16).padStart(2, '0')}${quantizedG.toString(16).padStart(2, '0')}${quantizedB.toString(16).padStart(2, '0')}`;
             colors[hex] = (colors[hex] || 0) + 1;
           }
         }
         
-        // Get most common colors
+        // Get most common colors and filter out very similar colors
         const sortedColors = Object.entries(colors)
           .sort(([,a], [,b]) => b - a)
-          .slice(0, colorCount)
+          .slice(0, colorCount * 2) // Get more colors initially
           .map(([hex, count]) => {
             const rgb = hexToRgb(hex);
             return {
@@ -268,11 +399,32 @@ export default function ColorPaletteGeneratorClient({}: ColorPaletteGeneratorCli
               rgb: rgb || { r: 0, g: 0, b: 0 },
               hsl: rgb ? rgbToHsl(rgb.r, rgb.g, rgb.b) : { h: 0, s: 0, l: 0 },
               name: 'Extracted Color',
+              count
             };
-          });
+          })
+          .filter((color, index, arr) => {
+            // Filter out colors that are too similar to already selected colors
+            return !arr.slice(0, index).some(existingColor => {
+              const distance = Math.sqrt(
+                Math.pow(color.rgb.r - existingColor.rgb.r, 2) +
+                Math.pow(color.rgb.g - existingColor.rgb.g, 2) +
+                Math.pow(color.rgb.b - existingColor.rgb.b, 2)
+              );
+              return distance < 50; // Threshold for color similarity
+            });
+          })
+          .slice(0, colorCount); // Take only the requested number
         
         setExtractedImageColors(sortedColors);
         setPalette(sortedColors);
+        
+        // Track image color extraction
+        trackColorPaletteGeneration('image', sortedColors.length);
+        trackToolUsage('color_palette', 'extract_from_image', { 
+          palette_size: sortedColors.length,
+          image_size: `${img.width}x${img.height}`
+        });
+        
         toast.success(`Extracted ${sortedColors.length} colors from image!`);
         setIsLoading(false);
       };
@@ -289,7 +441,7 @@ export default function ColorPaletteGeneratorClient({}: ColorPaletteGeneratorCli
       toast.error('Failed to extract colors from image');
       setIsLoading(false);
     }
-  }, [colorCount, false]);
+  }, [colorCount]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -297,7 +449,7 @@ export default function ColorPaletteGeneratorClient({}: ColorPaletteGeneratorCli
       'image/*': ['.jpeg', '.jpg', '.png', '.gif', '.webp']
     },
     multiple: false,
-    disabled: isLoading || false
+    disabled: isLoading
   });
 
   // Copy color to clipboard
@@ -317,6 +469,32 @@ export default function ColorPaletteGeneratorClient({}: ColorPaletteGeneratorCli
       toast.success(`${format.toUpperCase()} copied!`);
     } else {
       toast.error('Failed to copy color');
+    }
+  };
+
+  // Copy all colors to clipboard
+  const copyAllColors = async (format: 'hex' | 'rgb' | 'hsl') => {
+    if (palette.length === 0) {
+      toast.error('No colors to copy!');
+      return;
+    }
+
+    let textToCopy = '';
+    palette.forEach((color, index) => {
+      let colorText = color.hex;
+      if (format === 'rgb') {
+        colorText = `rgb(${color.rgb.r}, ${color.rgb.g}, ${color.rgb.b})`;
+      } else if (format === 'hsl') {
+        colorText = `hsl(${color.hsl.h}, ${color.hsl.s}%, ${color.hsl.l}%)`;
+      }
+      textToCopy += colorText + (index < palette.length - 1 ? '\n' : '');
+    });
+    
+    const success = await copyToClipboard(textToCopy);
+    if (success) {
+      toast.success(`All ${palette.length} colors copied as ${format.toUpperCase()}!`);
+    } else {
+      toast.error('Failed to copy colors');
     }
   };
 
@@ -348,6 +526,11 @@ export default function ColorPaletteGeneratorClient({}: ColorPaletteGeneratorCli
 
     const blob = new Blob([content], { type: `text/${format};charset=utf-8;` });
     saveAs(blob, filename);
+    
+    // Track download
+    trackFileDownload(filename, format, 'color_palette');
+    trackToolUsage('color_palette', `download_${format}`, { palette_size: palette.length });
+    
     toast.success(`${format.toUpperCase()} palette downloaded!`);
   };
 
@@ -403,39 +586,49 @@ export default function ColorPaletteGeneratorClient({}: ColorPaletteGeneratorCli
 
         <div className="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Random Palette */}
-          <button
-            onClick={generateRandomPalette}
-            disabled={isLoading || false}
-            className="btn-primary flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <RefreshCw className="w-4 h-4" />
-            <span>Random Palette</span>
-          </button>
+          <Tooltip content="Generate a random color palette (Ctrl+R)">
+            <button
+              onClick={generateRandomPalette}
+              disabled={isLoading}
+              className="btn-primary flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isLoading ? (
+                <Loader2 className="w-4 h-4 animate-spin" />
+              ) : (
+                <RefreshCw className="w-4 h-4" />
+              )}
+              <span>Random Palette</span>
+            </button>
+          </Tooltip>
 
           {/* Base Color Picker */}
           <div className="relative">
-            <button
-              onClick={() => setShowColorPicker(!showColorPicker)}
-              className="btn-outline w-full flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
-              disabled={isLoading || false}
-            >
-              <div className="w-4 h-4 rounded-full border border-gray-300" style={{ backgroundColor: selectedColor }}></div>
-              <span>Base Color: {selectedColor}</span>
-            </button>
+            <Tooltip content="Choose a base color to generate harmonious variations">
+              <button
+                onClick={() => setShowColorPicker(!showColorPicker)}
+                className="btn-secondary w-full flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled={isLoading}
+              >
+                <div className="w-4 h-4 rounded-full border border-gray-300" style={{ backgroundColor: selectedColor }}></div>
+                <span>Base Color: {selectedColor}</span>
+              </button>
+            </Tooltip>
             {showColorPicker && (
-              <div ref={colorPickerRef} className="absolute z-10 mt-2 left-1/2 -translate-x-1/2">
-                <ChromePicker
-                  color={selectedColor}
-                  onChange={(color) => setSelectedColor(color.hex)}
-                  disableAlpha={true}
-                />
+              <div ref={colorPickerRef} className="absolute z-50 mt-2 left-1/2 -translate-x-1/2 bg-white rounded-lg shadow-xl border border-gray-200 p-2 max-w-full">
+                <div className="w-full max-w-xs mx-auto">
+                  <ChromePicker
+                    color={selectedColor}
+                    onChange={(color) => setSelectedColor(color.hex)}
+                    disableAlpha={true}
+                  />
+                </div>
                 <button
                   onClick={() => {
                     generateFromBaseColor(selectedColor);
                     setShowColorPicker(false);
                   }}
                   className="btn-primary w-full mt-2"
-                  disabled={isLoading || false}
+                  disabled={isLoading}
                 >
                   Generate from Base
                 </button>
@@ -444,27 +637,29 @@ export default function ColorPaletteGeneratorClient({}: ColorPaletteGeneratorCli
           </div>
 
           {/* Image Upload */}
-          <div
-            {...getRootProps()}
-            className={`border-2 border-dashed rounded-lg p-6 text-center transition-colors duration-200 ${
-              isDragActive ? 'border-primary-500 bg-primary-50' : 'border-gray-300 hover:border-primary-400'
-            } ${isLoading || false ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
-          >
-            <input {...getInputProps()} disabled={isLoading || false} />
-            <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2" />
-            {isDragActive ? (
-              <p className="text-primary-700">Drop the image here ...</p>
-            ) : (
-              <p className="text-gray-600">Drag 'n' drop an image here, or click to select file</p>
-            )}
-            <p className="text-xs text-gray-500 mt-1">(Max 5MB, JPG, PNG, GIF, WEBP)</p>
-            {isLoading && (
-              <div className="flex items-center justify-center mt-2 text-primary-600">
-                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                <span>Extracting colors...</span>
-              </div>
-            )}
-          </div>
+          <Tooltip content="Upload an image to extract dominant colors automatically">
+            <div
+              {...getRootProps()}
+              className={`border-2 border-dashed rounded-lg p-6 text-center transition-colors duration-200 ${
+                isDragActive ? 'border-primary-500 bg-primary-50' : 'border-gray-300 hover:border-primary-400'
+              } ${isLoading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+            >
+              <input {...getInputProps()} disabled={isLoading} />
+              <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2" />
+              {isDragActive ? (
+                <p className="text-primary-700">Drop the image here ...</p>
+              ) : (
+                <p className="text-gray-600">Drag 'n' drop an image here, or click to select file</p>
+              )}
+              <p className="text-xs text-gray-500 mt-1">(Max 5MB, JPG, PNG, GIF, WEBP)</p>
+              {isLoading && (
+                <div className="flex items-center justify-center mt-2 text-primary-600">
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  <span>Extracting colors...</span>
+                </div>
+              )}
+            </div>
+          </Tooltip>
         </div>
 
         {imagePreview && (
@@ -489,7 +684,9 @@ export default function ColorPaletteGeneratorClient({}: ColorPaletteGeneratorCli
       </div>
 
       {/* Generated Palette */}
-      {palette.length > 0 && (
+      {isLoading && palette.length === 0 ? (
+        <ColorPaletteSkeleton />
+      ) : palette.length > 0 && (
         <div className="card animate-fade-in">
           <h2 className="text-2xl font-semibold text-gray-800 mb-4">Generated Palette</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
@@ -511,6 +708,25 @@ export default function ColorPaletteGeneratorClient({}: ColorPaletteGeneratorCli
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* Copy All Options */}
+          <div className="mt-6">
+            <h3 className="text-lg font-semibold text-gray-900 mb-3">Copy All Colors</h3>
+            <div className="flex flex-wrap gap-3">
+              <button onClick={() => copyAllColors('hex')} className="btn-ghost flex items-center space-x-2">
+                <Copy className="w-4 h-4" />
+                <span>Copy HEX</span>
+              </button>
+              <button onClick={() => copyAllColors('rgb')} className="btn-ghost flex items-center space-x-2">
+                <Copy className="w-4 h-4" />
+                <span>Copy RGB</span>
+              </button>
+              <button onClick={() => copyAllColors('hsl')} className="btn-ghost flex items-center space-x-2">
+                <Copy className="w-4 h-4" />
+                <span>Copy HSL</span>
+              </button>
+            </div>
           </div>
 
           {/* Export Options */}

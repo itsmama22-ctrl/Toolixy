@@ -1,16 +1,26 @@
 ---
 title: "Lead Scoring Strategies: How to Identify and Prioritize High-Value Prospects"
 publishDate: "2025-10-17"
-lastModified: "2025-02-02"
+lastModified: "2025-10-24"
 tags: ["lead scoring", "sales", "marketing automation", "prospecting", "CRM"]
 author:
   name: "Sarah Johnson"
   avatar: "/images/authors/sarah-johnson.svg"
 featuredImage: "/images/blog/lead-scoring-strategies.svg"
 metaTitle: "Lead Scoring Strategies 2025 - Identify High-Value Prospects"
-metaDescription: "Master lead scoring to identify and prioritize your best prospects. Learn proven strategies, scoring models, and automation techniques to boost your sales conversion rates."
+metaDescription: "Master lead scoring to identify and prioritize your best prospects. Learn proven strategies, scoring models, and automation techniques to boost your sales co..."
 keywords: ["lead scoring", "lead qualification", "sales prospecting", "marketing automation", "CRM lead scoring", "sales pipeline"]
+readingTime: "7"
+canonical: "https://toolixy.vercel.app/blog/lead-scoring-strategies"
+openGraph: {"type":"article","title":"Lead Scoring Strategies 2025 - Identify High-Value Prospects","description":"Master lead scoring to identify and prioritize your best prospects. Learn proven strategies, scoring models, and automation techniques to boost your sales conversion rates.","image":"/images/blog/lead-scoring-strategies.svg","url":"https://toolixy.vercel.app/blog/lead-scoring-strategies","siteName":"toolixy","locale":"en_US"}
+twitter: {"card":"summary_large_image","title":"Lead Scoring Strategies 2025 - Identify High-Value Prospects","description":"Master lead scoring to identify and prioritize your best prospects. Learn proven strategies, scoring models, and automation techniques to boost your sales conversion rates.","image":"/images/blog/lead-scoring-strategies.svg","creator":"@toolixy","site":"@toolixy"}
+schema: {"@context":"https://schema.org","@type":"Article","headline":"Lead Scoring Strategies: How to Identify and Prioritize High-Value Prospects","description":"Master lead scoring to identify and prioritize your best prospects. Learn proven strategies, scoring models, and automation techniques to boost your sales conversion rates.","image":"/images/blog/lead-scoring-strategies.svg","author":{"@type":"Person","name":"Sarah Johnson"},"publisher":{"@type":"Organization","name":"toolixy","logo":{"@type":"ImageObject","url":"https://toolixy.com/logo.png"}},"datePublished":"2025-10-17","dateModified":"2025-02-02","mainEntityOfPage":{"@type":"WebPage","@id":"https://toolixy.vercel.app/blog/lead-scoring-strategies"}}
+excerpt: "Lead Scoring Strategies: How to Identify and Prioritize High-Value Prospects Lead scoring is a systematic approach to ranking prospects based on their..."
 ---
+
+
+
+
 
 # Lead Scoring Strategies: How to Identify and Prioritize High-Value Prospects
 

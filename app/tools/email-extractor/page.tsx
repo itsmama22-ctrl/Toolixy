@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import EmailExtractorClient from '@/components/EmailExtractorClient';
 import SEO from '@/components/SEO';
+import Breadcrumb from '@/components/Breadcrumb';
 
 export const metadata: Metadata = {
   title: 'Email Extractor - Extract Emails from Websites | MultiTool SaaS',
@@ -31,7 +32,10 @@ export default function EmailExtractorPage() {
         url="/tools/email-extractor"
         type="website"
       />
-          <EmailExtractorClient />
+      <div className="max-w-6xl mx-auto px-6 py-4">
+        <Breadcrumb className="mb-6" />
+      </div>
+      <EmailExtractorClient />
     </>
   );
 }

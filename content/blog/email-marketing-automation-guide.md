@@ -1,17 +1,28 @@
 ---
 title: "Email Marketing Automation Guide: Scale Your Campaigns with Smart Automation"
 publishDate: "2025-11-12"
-lastModified: "2025-10-16"
+lastModified: "2025-10-24"
 tags: ["email marketing", "automation", "lead generation", "email campaigns", "marketing automation"]
 author:
   name: "Sarah Johnson"
   avatar: "/images/authors/sarah-johnson.svg"
 featuredImage: "/images/blog/email-marketing-automation-guide.svg"
 metaTitle: "Email Marketing Automation Guide 2025 - Scale Your Campaigns"
-metaDescription: "Master email marketing automation with our comprehensive guide. Learn to create automated campaigns, nurture leads, and boost conversions with proven strategies."
+metaDescription: "Master email marketing automation with our comprehensive guide. Learn to create automated campaigns, nurture leads, and boost conversions with proven strateg..."
 keywords: ["email marketing automation", "automated campaigns", "lead nurturing", "email sequences", "marketing automation", "email workflows"]
+readingTime: "9"
+canonical: "https://toolixy.vercel.app/blog/email-marketing-automation-guide"
+openGraph: {"type":"article","title":"Email Marketing Automation Guide 2025 - Scale Your Campaigns","description":"Master email marketing automation with our comprehensive guide. Learn to create automated campaigns, nurture leads, and boost conversions with proven strategies.","image":"/images/blog/email-marketing-automation-guide.svg","url":"https://toolixy.vercel.app/blog/email-marketing-automation-guide","siteName":"toolixy","locale":"en_US"}
+twitter: {"card":"summary_large_image","title":"Email Marketing Automation Guide 2025 - Scale Your Campaigns","description":"Master email marketing automation with our comprehensive guide. Learn to create automated campaigns, nurture leads, and boost conversions with proven strategies.","image":"/images/blog/email-marketing-automation-guide.svg","creator":"@toolixy","site":"@toolixy"}
+schema: {"@context":"https://schema.org","@type":"Article","headline":"Email Marketing Automation Guide: Scale Your Campaigns with Smart Automation","description":"Master email marketing automation with our comprehensive guide. Learn to create automated campaigns, nurture leads, and boost conversions with proven strategies.","image":"/images/blog/email-marketing-automation-guide.svg","author":{"@type":"Person","name":"Sarah Johnson"},"publisher":{"@type":"Organization","name":"toolixy","logo":{"@type":"ImageObject","url":"https://toolixy.com/logo.png"}},"datePublished":"2025-11-12","dateModified":"2025-10-16","mainEntityOfPage":{"@type":"WebPage","@id":"https://toolixy.vercel.app/blog/email-marketing-automation-guide"}}
 status: "draft"
+excerpt: "Email Marketing Automation Guide: Scale Your Campaigns with Smart Automation Email marketing automation has revolutionized how businesses nurture leads, engage..."
 ---
+
+
+
+
+
 
 # Email Marketing Automation Guide: Scale Your Campaigns with Smart Automation
 

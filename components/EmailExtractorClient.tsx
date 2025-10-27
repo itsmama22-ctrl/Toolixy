@@ -7,6 +7,7 @@ import Papa from 'papaparse';
 import { saveAs } from 'file-saver';
 import type { EmailExtractionResult } from '@/types';
 import { copyToClipboard, isValidUrl, extractDomain } from '@/lib/utils';
+import { trackEmailExtraction, trackToolUsage, trackFileDownload, trackError } from '@/lib/analytics';
 
 interface EmailExtractorClientProps {}
 
@@ -51,18 +52,41 @@ export default function EmailExtractorClient({}: EmailExtractorClientProps) {
 
     try {
       // Use CORS proxy to bypass CORS restrictions
-      const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
-      
-      const response = await fetch(proxyUrl);
-      const data = await response.json();
+      // Try multiple proxies for better reliability
+      const proxies = [
+        `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`,
+        `https://cors-anywhere.herokuapp.com/${url}`,
+        `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`
+      ];
 
-      if (!response.ok) {
-        throw new Error('Failed to fetch the webpage');
+      let response;
+      let htmlContent = '';
+      
+      for (const proxyUrl of proxies) {
+        try {
+          response = await fetch(proxyUrl);
+          if (response.ok) {
+            if (proxyUrl.includes('allorigins.win')) {
+              const data = await response.json();
+              htmlContent = data.contents;
+            } else {
+              htmlContent = await response.text();
+            }
+            break;
+          }
+        } catch (err) {
+          console.warn(`Proxy ${proxyUrl} failed:`, err);
+          continue;
+        }
+      }
+
+      if (!htmlContent) {
+        throw new Error('Failed to fetch the webpage. Please try a different URL or check if the website is accessible.');
       }
 
       // Parse the HTML content
       const parser = new DOMParser();
-      const doc = parser.parseFromString(data.contents, 'text/html');
+      const doc = parser.parseFromString(htmlContent, 'text/html');
       
       // Remove script and style elements
       const scripts = doc.querySelectorAll('script, style, noscript');
@@ -71,11 +95,11 @@ export default function EmailExtractorClient({}: EmailExtractorClientProps) {
       // Get all text content
       const textContent = doc.body.textContent || '';
       
-      // Extract emails using regex
+      // Extract emails using improved regex
       const emailRegex = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
       const emails = textContent.match(emailRegex) || [];
 
-      // Filter out common false positives
+      // Filter out common false positives and validate emails
       const filteredEmails = emails
         .filter(email => {
           const lowerEmail = email.toLowerCase();
@@ -84,7 +108,13 @@ export default function EmailExtractorClient({}: EmailExtractorClientProps) {
                  !lowerEmail.includes('domain.com') &&
                  !lowerEmail.includes('your-email') &&
                  !lowerEmail.includes('email@') &&
-                 lowerEmail.length > 5;
+                 !lowerEmail.includes('noreply') &&
+                 !lowerEmail.includes('no-reply') &&
+                 !lowerEmail.includes('donotreply') &&
+                 !lowerEmail.includes('do-not-reply') &&
+                 lowerEmail.length > 5 &&
+                 lowerEmail.includes('@') &&
+                 lowerEmail.split('@').length === 2;
         })
         .map(email => email.trim())
         .filter((email, index, arr) => arr.indexOf(email) === index) // Remove duplicates
@@ -119,13 +149,33 @@ export default function EmailExtractorClient({}: EmailExtractorClientProps) {
         status: 'success',
       };
 
-      setResult(extractionResult);
-      toast.success(`Found ${allEmails.length} emails!`);
+          setResult(extractionResult);
+          
+          // Track extraction success
+          trackEmailExtraction(url, allEmails.length, true);
+          trackToolUsage('email_extractor', 'extraction_completed', {
+            email_count: allEmails.length,
+            url: url
+          });
+          
+          if (allEmails.length === 0) {
+            toast('No emails found on this page. Try a different website.', {
+              icon: 'ℹ️',
+              duration: 4000,
+            });
+            trackToolUsage('email_extractor', 'no_emails_found', { url: url });
+          } else {
+            toast.success(`Found ${allEmails.length} email${allEmails.length !== 1 ? 's' : ''}!`);
+          }
       
-    } catch (err) {
-      console.error('Email extraction error:', err);
-      setError(err instanceof Error ? err.message : 'An unexpected error occurred');
-      toast.error(err instanceof Error ? err.message : 'An unexpected error occurred');
+        } catch (err) {
+          console.error('Email extraction error:', err);
+          setError(err instanceof Error ? err.message : 'An unexpected error occurred');
+          toast.error(err instanceof Error ? err.message : 'An unexpected error occurred');
+          
+          // Track extraction error
+          trackError('email_extraction_error', err instanceof Error ? err.message : 'Unknown error', 'email_extractor');
+          trackEmailExtraction(url, 0, false);
     } finally {
       setIsLoading(false);
     }
@@ -137,7 +187,13 @@ export default function EmailExtractorClient({}: EmailExtractorClientProps) {
     const csvData = result.emails.map(email => ({ email }));
     const csv = Papa.unparse(csvData);
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-    saveAs(blob, `${extractDomain(result.url)}-emails.csv`);
+    const fileName = `${extractDomain(result.url)}-emails.csv`;
+    saveAs(blob, fileName);
+    
+    // Track download
+    trackFileDownload(fileName, 'csv', 'email_extractor');
+    trackToolUsage('email_extractor', 'download_csv', { email_count: result.emails.length });
+    
     toast.success('CSV downloaded!');
   };
 
@@ -146,7 +202,13 @@ export default function EmailExtractorClient({}: EmailExtractorClientProps) {
 
     const txtData = result.emails.join('\n');
     const blob = new Blob([txtData], { type: 'text/plain;charset=utf-8;' });
-    saveAs(blob, `${extractDomain(result.url)}-emails.txt`);
+    const fileName = `${extractDomain(result.url)}-emails.txt`;
+    saveAs(blob, fileName);
+    
+    // Track download
+    trackFileDownload(fileName, 'txt', 'email_extractor');
+    trackToolUsage('email_extractor', 'download_txt', { email_count: result.emails.length });
+    
     toast.success('TXT downloaded!');
   };
 
@@ -236,7 +298,7 @@ export default function EmailExtractorClient({}: EmailExtractorClientProps) {
             </button>
             <button
               onClick={() => copyToClipboardHandler(result.emails.join('\n'))}
-              className="btn-outline flex items-center space-x-2"
+              className="btn-ghost flex items-center space-x-2"
             >
               <Copy className="w-4 h-4" />
               <span>Copy All</span>
@@ -245,7 +307,7 @@ export default function EmailExtractorClient({}: EmailExtractorClientProps) {
               href={result.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-outline flex items-center space-x-2"
+              className="btn-ghost flex items-center space-x-2"
             >
               <ExternalLink className="w-4 h-4" />
               <span>Visit Page</span>

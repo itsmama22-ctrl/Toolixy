@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { Mail, Palette, Github, Twitter, Linkedin, ArrowRight } from 'lucide-react';
+import { Mail, Palette, Github, Twitter, Linkedin, ArrowRight, Heart } from 'lucide-react';
 
 const navigation = {
   tools: [
@@ -28,17 +28,17 @@ const navigation = {
 const socialLinks = [
   {
     name: 'Twitter',
-    href: 'https://twitter.com/multitoolsaas',
+    href: 'https://twitter.com/toolixy',
     icon: Twitter,
   },
   {
     name: 'LinkedIn',
-    href: 'https://linkedin.com/company/multitoolsaas',
+    href: 'https://linkedin.com/company/toolixy',
     icon: Linkedin,
   },
   {
     name: 'GitHub',
-    href: 'https://github.com/multitoolsaas',
+    href: 'https://github.com/toolixy',
     icon: Github,
   },
 ];
@@ -46,45 +46,67 @@ const socialLinks = [
 export default function Footer() {
   return (
     <footer className="bg-gray-900 text-white">
-      <div className="container-custom py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
-          {/* Brand Section */}
+      <div className="container-custom section-padding">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
+          {/* Modern Brand Section */}
           <div className="lg:col-span-2">
-            <div className="flex items-center space-x-2 mb-6">
-              <div className="w-8 h-8 bg-gradient-to-r from-primary-600 to-secondary-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">M</span>
+              <div className="flex items-center space-x-3 mb-6">
+                <div className="relative">
+                  <div className="w-10 h-10 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 rounded-2xl flex items-center justify-center shadow-lg">
+                    <span className="text-white font-bold text-lg">t</span>
+                  </div>
+                  <div className="absolute -top-1 -right-1 w-3 h-3 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full shadow-md"></div>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-2xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                    toolixy
+                  </span>
+                  <span className="text-sm text-gray-400 font-medium -mt-1">Professional Tools</span>
+                </div>
               </div>
-              <span className="text-xl font-bold">Toolisy</span>
-            </div>
-            <p className="text-gray-400 mb-6 leading-relaxed">
+            <p className="body-regular text-gray-400 mb-6 max-w-md">
               Professional tools for marketers, designers, and entrepreneurs. 
               Extract emails and generate color palettes with ease.
             </p>
             
-            {/* Newsletter */}
-            <div className="mb-6">
-              <h3 className="text-lg font-semibold mb-3">Stay Updated</h3>
-              <div className="flex space-x-2">
+            {/* Contact Email */}
+            <div className="mb-8">
+              <div className="flex items-center space-x-2 text-gray-300">
+                <Mail className="w-4 h-4" />
+                <a 
+                  href="mailto:contact.toolixy@gmail.com"
+                  className="body-regular text-gray-300 hover:text-white transition-colors duration-200"
+                >
+                  contact.toolixy@gmail.com
+                </a>
+              </div>
+            </div>
+            
+            {/* Modern Newsletter */}
+            <div className="mb-8">
+              <h3 className="heading-4 text-white mb-4">Stay Updated</h3>
+              <div className="flex gap-3">
                 <input
                   type="email"
                   placeholder="Enter your email"
-                  className="flex-1 px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="flex-1 input-field bg-gray-800 border-gray-700 text-white placeholder-gray-400 focus:ring-primary-500 focus:border-primary-500"
                 />
-                <button className="btn-primary px-4 py-2">
-                  <ArrowRight className="w-4 h-4" />
+                <button className="btn-primary px-6 py-3 group">
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
                 </button>
               </div>
             </div>
 
-            {/* Social Links */}
+            {/* Modern Social Links */}
             <div className="flex space-x-4">
               {socialLinks.map((item) => (
                 <a
                   key={item.name}
                   href={item.href}
-                  className="text-gray-400 hover:text-white transition-colors"
+                  className="w-10 h-10 bg-gray-800 rounded-xl flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary-600 transition-all duration-200 hover:scale-110"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label={item.name}
                 >
                   <item.icon className="w-5 h-5" />
                 </a>
@@ -92,15 +114,15 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Navigation Links */}
+          {/* Modern Navigation Links */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Tools</h3>
-            <ul className="space-y-3">
+            <h3 className="heading-4 text-white mb-6">Tools</h3>
+            <ul className="space-y-4">
               {navigation.tools.map((item) => (
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="text-gray-400 hover:text-white transition-colors"
+                    className="body-regular text-gray-400 hover:text-white transition-colors duration-200 hover:translate-x-1 inline-block"
                   >
                     {item.name}
                   </Link>
@@ -110,13 +132,13 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold mb-4">Company</h3>
-            <ul className="space-y-3">
+            <h3 className="heading-4 text-white mb-6">Company</h3>
+            <ul className="space-y-4">
               {navigation.company.map((item) => (
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="text-gray-400 hover:text-white transition-colors"
+                    className="body-regular text-gray-400 hover:text-white transition-colors duration-200 hover:translate-x-1 inline-block"
                   >
                     {item.name}
                   </Link>
@@ -126,13 +148,13 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold mb-4">Resources</h3>
-            <ul className="space-y-3">
+            <h3 className="heading-4 text-white mb-6">Resources</h3>
+            <ul className="space-y-4">
               {navigation.resources.map((item) => (
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="text-gray-400 hover:text-white transition-colors"
+                    className="body-regular text-gray-400 hover:text-white transition-colors duration-200 hover:translate-x-1 inline-block"
                   >
                     {item.name}
                   </Link>
@@ -142,17 +164,19 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom Section */}
-        <div className="border-t border-gray-800 pt-8 mt-12">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 text-sm text-gray-400">
-              <p>&copy; {new Date().getFullYear()} Toolisy SaaS. All rights reserved.</p>
-              <div className="flex space-x-6">
+        {/* Modern Bottom Section */}
+        <div className="border-t border-gray-800 pt-8 mt-16">
+          <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
+            <div className="flex flex-col lg:flex-row items-center gap-4 lg:gap-8">
+              <p className="body-small text-gray-400">
+                &copy; {new Date().getFullYear()} toolixy. All rights reserved.
+              </p>
+              <div className="flex flex-wrap gap-6">
                 {navigation.legal.map((item) => (
                   <Link
                     key={item.name}
                     href={item.href}
-                    className="hover:text-white transition-colors"
+                    className="body-small text-gray-400 hover:text-white transition-colors duration-200"
                   >
                     {item.name}
                   </Link>
@@ -160,12 +184,10 @@ export default function Footer() {
               </div>
             </div>
             
-            <div className="flex items-center space-x-4 mt-4 md:mt-0">
-              <span className="text-sm text-gray-400">Made with</span>
-              <div className="flex items-center space-x-1">
-                <Mail className="w-4 h-4 text-primary-400" />
-                <Palette className="w-4 h-4 text-secondary-400" />
-              </div>
+            <div className="flex items-center space-x-2 text-gray-400">
+              <span className="body-small">Made with</span>
+              <Heart className="w-4 h-4 text-red-500 animate-pulse" />
+              <span className="body-small">by the toolixy team</span>
             </div>
           </div>
         </div>

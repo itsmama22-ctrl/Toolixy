@@ -1,7 +1,7 @@
 ---
 title: "CRM Email Integration: Streamline Your Sales Process with Automated Workflows"
 publishDate: "2025-10-15"
-lastModified: "2025-02-06"
+lastModified: "2025-10-24"
 tags: ["crm integration", "email automation", "sales process", "lead management", "workflow automation"]
 author:
   name: "Sarah Johnson"
@@ -10,7 +10,17 @@ featuredImage: "/images/blog/crm-email-integration.svg"
 metaTitle: "CRM Email Integration 2025 - Streamline Sales with Automated Workflows"
 metaDescription: "Learn how to integrate email marketing with your CRM system. Discover automation workflows, lead scoring, and best practices for seamless sales processes."
 keywords: ["crm email integration", "sales automation", "lead management", "email crm", "workflow automation", "sales process"]
+readingTime: "7"
+canonical: "https://toolixy.vercel.app/blog/crm-email-integration"
+openGraph: {"type":"article","title":"CRM Email Integration 2025 - Streamline Sales with Automated Workflows","description":"Learn how to integrate email marketing with your CRM system. Discover automation workflows, lead scoring, and best practices for seamless sales processes.","image":"/images/blog/crm-email-integration.svg","url":"https://toolixy.vercel.app/blog/crm-email-integration","siteName":"toolixy","locale":"en_US"}
+twitter: {"card":"summary_large_image","title":"CRM Email Integration 2025 - Streamline Sales with Automated Workflows","description":"Learn how to integrate email marketing with your CRM system. Discover automation workflows, lead scoring, and best practices for seamless sales processes.","image":"/images/blog/crm-email-integration.svg","creator":"@toolixy","site":"@toolixy"}
+schema: {"@context":"https://schema.org","@type":"Article","headline":"CRM Email Integration: Streamline Your Sales Process with Automated Workflows","description":"Learn how to integrate email marketing with your CRM system. Discover automation workflows, lead scoring, and best practices for seamless sales processes.","image":"/images/blog/crm-email-integration.svg","author":{"@type":"Person","name":"Sarah Johnson"},"publisher":{"@type":"Organization","name":"toolixy","logo":{"@type":"ImageObject","url":"https://toolixy.com/logo.png"}},"datePublished":"2025-10-15","dateModified":"2025-02-06","mainEntityOfPage":{"@type":"WebPage","@id":"https://toolixy.vercel.app/blog/crm-email-integration"}}
+excerpt: "CRM Email Integration: Streamline Your Sales Process with Automated Workflows Integrating your email marketing with your Customer Relationship Management (CRM)..."
 ---
+
+
+
+
 
 # CRM Email Integration: Streamline Your Sales Process with Automated Workflows
 

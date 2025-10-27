@@ -1,7 +1,7 @@
 ---
 title: "Lead Generation Automation: Streamline Your Sales Pipeline"
 publishDate: "2025-10-16"
-lastModified: "2025-02-13"
+lastModified: "2025-10-24"
 tags: ["lead generation", "automation", "sales pipeline", "marketing automation", "CRM"]
 author:
   name: "Michael Chen"
@@ -10,7 +10,17 @@ featuredImage: "/images/blog/lead-generation-automation.svg"
 metaTitle: "Lead Generation Automation 2025 - Streamline Your Sales Pipeline"
 metaDescription: "Master lead generation automation with our comprehensive guide. Learn how to automate your sales pipeline, nurture leads, and boost conversions."
 keywords: ["lead generation", "marketing automation", "sales pipeline", "lead nurturing", "CRM automation", "sales funnel"]
+readingTime: "7"
+canonical: "https://toolixy.vercel.app/blog/lead-generation-automation"
+openGraph: {"type":"article","title":"Lead Generation Automation 2025 - Streamline Your Sales Pipeline","description":"Master lead generation automation with our comprehensive guide. Learn how to automate your sales pipeline, nurture leads, and boost conversions.","image":"/images/blog/lead-generation-automation.svg","url":"https://toolixy.vercel.app/blog/lead-generation-automation","siteName":"toolixy","locale":"en_US"}
+twitter: {"card":"summary_large_image","title":"Lead Generation Automation 2025 - Streamline Your Sales Pipeline","description":"Master lead generation automation with our comprehensive guide. Learn how to automate your sales pipeline, nurture leads, and boost conversions.","image":"/images/blog/lead-generation-automation.svg","creator":"@toolixy","site":"@toolixy"}
+schema: {"@context":"https://schema.org","@type":"Article","headline":"Lead Generation Automation: Streamline Your Sales Pipeline","description":"Master lead generation automation with our comprehensive guide. Learn how to automate your sales pipeline, nurture leads, and boost conversions.","image":"/images/blog/lead-generation-automation.svg","author":{"@type":"Person","name":"Michael Chen"},"publisher":{"@type":"Organization","name":"toolixy","logo":{"@type":"ImageObject","url":"https://toolixy.com/logo.png"}},"datePublished":"2025-10-16","dateModified":"2025-02-13","mainEntityOfPage":{"@type":"WebPage","@id":"https://toolixy.vercel.app/blog/lead-generation-automation"}}
+excerpt: "Lead Generation Automation: Streamline Your Sales Pipeline Lead generation automation transforms how businesses attract, nurture, and convert prospects into..."
 ---
+
+
+
+
 
 # Lead Generation Automation: Streamline Your Sales Pipeline
 

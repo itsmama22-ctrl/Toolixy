@@ -1,16 +1,26 @@
 ---
 title: "Brand Color Identity: How to Choose Colors That Define Your Business"
 publishDate: "2025-10-15"
-lastModified: "2025-02-07"
+lastModified: "2025-10-24"
 tags: ["brand colors", "brand identity", "color branding", "visual identity", "brand design"]
 author:
   name: "Michael Chen"
   avatar: "/images/authors/michael-chen.svg"
 featuredImage: "/images/blog/brand-color-identity.svg"
 metaTitle: "Brand Color Identity Guide 2025 - Choose Colors That Define Your Business"
-metaDescription: "Learn how to create a strong brand color identity that reflects your business values and resonates with your target audience. Complete guide to brand color selection."
+metaDescription: "Learn how to create a strong brand color identity that reflects your business values and resonates with your target audience. Complete guide to brand color s..."
 keywords: ["brand color identity", "brand colors", "visual identity", "color branding", "brand design", "corporate colors"]
+readingTime: "9"
+canonical: "https://toolixy.vercel.app/blog/brand-color-identity"
+openGraph: {"type":"article","title":"Brand Color Identity Guide 2025 - Choose Colors That Define Your Business","description":"Learn how to create a strong brand color identity that reflects your business values and resonates with your target audience. Complete guide to brand color selection.","image":"/images/blog/brand-color-identity.svg","url":"https://toolixy.vercel.app/blog/brand-color-identity","siteName":"toolixy","locale":"en_US"}
+twitter: {"card":"summary_large_image","title":"Brand Color Identity Guide 2025 - Choose Colors That Define Your Business","description":"Learn how to create a strong brand color identity that reflects your business values and resonates with your target audience. Complete guide to brand color selection.","image":"/images/blog/brand-color-identity.svg","creator":"@toolixy","site":"@toolixy"}
+schema: {"@context":"https://schema.org","@type":"Article","headline":"Brand Color Identity: How to Choose Colors That Define Your Business","description":"Learn how to create a strong brand color identity that reflects your business values and resonates with your target audience. Complete guide to brand color selection.","image":"/images/blog/brand-color-identity.svg","author":{"@type":"Person","name":"Michael Chen"},"publisher":{"@type":"Organization","name":"toolixy","logo":{"@type":"ImageObject","url":"https://toolixy.com/logo.png"}},"datePublished":"2025-10-15","dateModified":"2025-02-07","mainEntityOfPage":{"@type":"WebPage","@id":"https://toolixy.vercel.app/blog/brand-color-identity"}}
+excerpt: "Brand Color Identity: How to Choose Colors That Define Your Business Your brand color identity is one of the most powerful tools for creating recognition,..."
 ---
+
+
+
+
 
 # Brand Color Identity: How to Choose Colors That Define Your Business
 

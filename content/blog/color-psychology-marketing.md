@@ -1,16 +1,26 @@
 ---
 title: "Color Psychology in Marketing: How Colors Influence Consumer Behavior"
 publishDate: "2025-10-15"
-lastModified: "2025-02-01"
+lastModified: "2025-10-24"
 tags: ["color psychology", "marketing", "consumer behavior", "branding", "design"]
 author:
   name: "Michael Chen"
   avatar: "/images/authors/michael-chen.svg"
 featuredImage: "/images/blog/color-psychology-marketing.svg"
 metaTitle: "Color Psychology in Marketing 2025 - How Colors Drive Consumer Behavior"
-metaDescription: "Discover how color psychology influences consumer behavior in marketing. Learn which colors to use for different industries and how to create compelling brand experiences."
+metaDescription: "Discover how color psychology influences consumer behavior in marketing. Learn which colors to use for different industries and how to create compelling bran..."
 keywords: ["color psychology", "marketing colors", "consumer behavior", "brand psychology", "color marketing", "visual marketing"]
+readingTime: "6"
+canonical: "https://toolixy.vercel.app/blog/color-psychology-marketing"
+openGraph: {"type":"article","title":"Color Psychology in Marketing 2025 - How Colors Drive Consumer Behavior","description":"Discover how color psychology influences consumer behavior in marketing. Learn which colors to use for different industries and how to create compelling brand experiences.","image":"/images/blog/color-psychology-marketing.svg","url":"https://toolixy.vercel.app/blog/color-psychology-marketing","siteName":"toolixy","locale":"en_US"}
+twitter: {"card":"summary_large_image","title":"Color Psychology in Marketing 2025 - How Colors Drive Consumer Behavior","description":"Discover how color psychology influences consumer behavior in marketing. Learn which colors to use for different industries and how to create compelling brand experiences.","image":"/images/blog/color-psychology-marketing.svg","creator":"@toolixy","site":"@toolixy"}
+schema: {"@context":"https://schema.org","@type":"Article","headline":"Color Psychology in Marketing: How Colors Influence Consumer Behavior","description":"Discover how color psychology influences consumer behavior in marketing. Learn which colors to use for different industries and how to create compelling brand experiences.","image":"/images/blog/color-psychology-marketing.svg","author":{"@type":"Person","name":"Michael Chen"},"publisher":{"@type":"Organization","name":"toolixy","logo":{"@type":"ImageObject","url":"https://toolixy.com/logo.png"}},"datePublished":"2025-10-15","dateModified":"2025-02-01","mainEntityOfPage":{"@type":"WebPage","@id":"https://toolixy.vercel.app/blog/color-psychology-marketing"}}
+excerpt: "Color Psychology in Marketing: How Colors Influence Consumer Behavior Color is one of the most powerful tools in marketing and branding. It can evoke emotions,..."
 ---
+
+
+
+
 
 # Color Psychology in Marketing: How Colors Influence Consumer Behavior
 

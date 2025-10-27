@@ -1,16 +1,26 @@
 ---
 title: "Essential UI/UX Design Principles for Modern Web Applications"
 publishDate: "2025-10-17"
-lastModified: "2024-01-27"
+lastModified: "2025-10-24"
 tags: ["ui/ux", "design", "web design", "user experience", "interface"]
 author:
   name: "Michael Chen"
   avatar: "/images/authors/michael-chen.svg"
 featuredImage: "/images/blog/ui-ux-design-principles.svg"
 metaTitle: "Essential UI/UX Design Principles for Modern Web Applications 2024"
-metaDescription: "Master the essential UI/UX design principles for creating modern, user-friendly web applications. Learn about usability, accessibility, and design best practices."
+metaDescription: "Master the essential UI/UX design principles for creating modern, user-friendly web applications. Learn about usability, accessibility, and design best pract..."
 keywords: ["ui design", "ux design", "user interface", "user experience", "web design principles"]
+readingTime: "8"
+canonical: "https://toolixy.vercel.app/blog/ui-ux-design-principles"
+openGraph: {"type":"article","title":"Essential UI/UX Design Principles for Modern Web Applications 2024","description":"Master the essential UI/UX design principles for creating modern, user-friendly web applications. Learn about usability, accessibility, and design best practices.","image":"/images/blog/ui-ux-design-principles.svg","url":"https://toolixy.vercel.app/blog/ui-ux-design-principles","siteName":"toolixy","locale":"en_US"}
+twitter: {"card":"summary_large_image","title":"Essential UI/UX Design Principles for Modern Web Applications 2024","description":"Master the essential UI/UX design principles for creating modern, user-friendly web applications. Learn about usability, accessibility, and design best practices.","image":"/images/blog/ui-ux-design-principles.svg","creator":"@toolixy","site":"@toolixy"}
+schema: {"@context":"https://schema.org","@type":"Article","headline":"Essential UI/UX Design Principles for Modern Web Applications","description":"Master the essential UI/UX design principles for creating modern, user-friendly web applications. Learn about usability, accessibility, and design best practices.","image":"/images/blog/ui-ux-design-principles.svg","author":{"@type":"Person","name":"Michael Chen"},"publisher":{"@type":"Organization","name":"toolixy","logo":{"@type":"ImageObject","url":"https://toolixy.com/logo.png"}},"datePublished":"2025-10-17","dateModified":"2024-01-27","mainEntityOfPage":{"@type":"WebPage","@id":"https://toolixy.vercel.app/blog/ui-ux-design-principles"}}
+excerpt: "Essential UI/UX Design Principles for Modern Web Applications Great user interface (UI) and user experience (UX) design are the foundation of successful web..."
 ---
+
+
+
+
 
 # Essential UI/UX Design Principles for Modern Web Applications
 

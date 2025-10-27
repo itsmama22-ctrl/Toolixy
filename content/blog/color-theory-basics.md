@@ -1,7 +1,7 @@
 ---
 title: "Color Theory Basics: Understanding the Science of Color in Design"
 publishDate: "2025-10-15"
-lastModified: "2025-02-12"
+lastModified: "2025-10-24"
 tags: ["color theory", "design fundamentals", "color psychology", "visual design", "branding"]
 author:
   name: "Alex Rodriguez"
@@ -10,7 +10,17 @@ featuredImage: "/images/blog/color-theory-basics.svg"
 metaTitle: "Color Theory Basics 2025 - Master the Science of Color in Design"
 metaDescription: "Learn the fundamentals of color theory with our comprehensive guide. Understand color relationships, psychology, and practical applications for better design."
 keywords: ["color theory", "color wheel", "color harmony", "color psychology", "design fundamentals", "visual design"]
+readingTime: "8"
+canonical: "https://toolixy.vercel.app/blog/color-theory-basics"
+openGraph: {"type":"article","title":"Color Theory Basics 2025 - Master the Science of Color in Design","description":"Learn the fundamentals of color theory with our comprehensive guide. Understand color relationships, psychology, and practical applications for better design.","image":"/images/blog/color-theory-basics.svg","url":"https://toolixy.vercel.app/blog/color-theory-basics","siteName":"toolixy","locale":"en_US"}
+twitter: {"card":"summary_large_image","title":"Color Theory Basics 2025 - Master the Science of Color in Design","description":"Learn the fundamentals of color theory with our comprehensive guide. Understand color relationships, psychology, and practical applications for better design.","image":"/images/blog/color-theory-basics.svg","creator":"@toolixy","site":"@toolixy"}
+schema: {"@context":"https://schema.org","@type":"Article","headline":"Color Theory Basics: Understanding the Science of Color in Design","description":"Learn the fundamentals of color theory with our comprehensive guide. Understand color relationships, psychology, and practical applications for better design.","image":"/images/blog/color-theory-basics.svg","author":{"@type":"Person","name":"Alex Rodriguez"},"publisher":{"@type":"Organization","name":"toolixy","logo":{"@type":"ImageObject","url":"https://toolixy.com/logo.png"}},"datePublished":"2025-10-15","dateModified":"2025-02-12","mainEntityOfPage":{"@type":"WebPage","@id":"https://toolixy.vercel.app/blog/color-theory-basics"}}
+excerpt: "Color Theory Basics: Understanding the Science of Color in Design Color theory is the foundation of visual design, influencing how we perceive and interact..."
 ---
+
+
+
+
 
 # Color Theory Basics: Understanding the Science of Color in Design
 

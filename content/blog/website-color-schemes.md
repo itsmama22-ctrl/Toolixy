@@ -1,7 +1,7 @@
 ---
 title: "Best Website Color Schemes 2025: Trends and Psychology for Modern Design"
 publishDate: "2025-10-17"
-lastModified: "2025-02-05"
+lastModified: "2025-10-24"
 tags: ["website colors", "color schemes", "web design", "color trends", "ui design"]
 author:
   name: "Michael Chen"
@@ -10,7 +10,17 @@ featuredImage: "/images/blog/website-color-schemes.svg"
 metaTitle: "Best Website Color Schemes 2025 - Modern Design Trends & Psychology"
 metaDescription: "Discover the best website color schemes for 2025. Learn about color trends, psychology, and how to choose the perfect color palette for your website design."
 keywords: ["website color schemes", "web design colors", "color trends 2025", "website color psychology", "ui color palettes", "web design"]
+readingTime: "8"
+canonical: "https://toolixy.vercel.app/blog/website-color-schemes"
+openGraph: {"type":"article","title":"Best Website Color Schemes 2025 - Modern Design Trends & Psychology","description":"Discover the best website color schemes for 2025. Learn about color trends, psychology, and how to choose the perfect color palette for your website design.","image":"/images/blog/website-color-schemes.svg","url":"https://toolixy.vercel.app/blog/website-color-schemes","siteName":"toolixy","locale":"en_US"}
+twitter: {"card":"summary_large_image","title":"Best Website Color Schemes 2025 - Modern Design Trends & Psychology","description":"Discover the best website color schemes for 2025. Learn about color trends, psychology, and how to choose the perfect color palette for your website design.","image":"/images/blog/website-color-schemes.svg","creator":"@toolixy","site":"@toolixy"}
+schema: {"@context":"https://schema.org","@type":"Article","headline":"Best Website Color Schemes 2025: Trends and Psychology for Modern Design","description":"Discover the best website color schemes for 2025. Learn about color trends, psychology, and how to choose the perfect color palette for your website design.","image":"/images/blog/website-color-schemes.svg","author":{"@type":"Person","name":"Michael Chen"},"publisher":{"@type":"Organization","name":"toolixy","logo":{"@type":"ImageObject","url":"https://toolixy.com/logo.png"}},"datePublished":"2025-10-17","dateModified":"2025-02-05","mainEntityOfPage":{"@type":"WebPage","@id":"https://toolixy.vercel.app/blog/website-color-schemes"}}
+excerpt: "Best Website Color Schemes 2025: Trends and Psychology for Modern Design Choosing the right color scheme for your website is crucial for creating an effective..."
 ---
+
+
+
+
 
 # Best Website Color Schemes 2025: Trends and Psychology for Modern Design
 

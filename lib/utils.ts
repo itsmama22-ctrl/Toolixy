@@ -179,7 +179,7 @@ export function generateMetaDescription(content: string, maxLength: number = 160
  * Generate sitemap URLs
  */
 export function generateSitemapUrls(): string[] {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://your-domain.com';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://toolixy.vercel.app';
   
   return [
     `${baseUrl}/`,

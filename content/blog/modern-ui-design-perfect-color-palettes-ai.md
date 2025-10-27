@@ -1,7 +1,7 @@
 ---
 title: "Modern UI Design: Creating Perfect Color Palettes with AI-Powered Tools"
 publishDate: "2025-12-14T10:00:00.000Z"
-lastModified: "2025-10-16"
+lastModified: "2025-10-24"
 tags: ["UI design", "color palette", "AI design tools", "modern design", "creative design", "user interface"]
 author:
   name: "Alex Rodriguez"
@@ -10,8 +10,19 @@ featuredImage: "/images/blog/modern-ui-design-perfect-color-palettes-ai.svg"
 metaTitle: "Modern UI Design: Create Perfect Color Palettes with AI-Powered Tools 2025"
 metaDescription: "Discover how AI-powered tools are revolutionizing UI design color palette creation. Learn modern techniques for creating stunning, accessible color schemes."
 keywords: ["UI design", "color palette", "AI design tools", "modern design", "user interface", "creative design software"]
+readingTime: "8"
+canonical: "https://toolixy.vercel.app/blog/modern-ui-design-perfect-color-palettes-ai"
+openGraph: {"type":"article","title":"Modern UI Design: Create Perfect Color Palettes with AI-Powered Tools 2025","description":"Discover how AI-powered tools are revolutionizing UI design color palette creation. Learn modern techniques for creating stunning, accessible color schemes.","image":"/images/blog/modern-ui-design-perfect-color-palettes-ai.svg","url":"https://toolixy.vercel.app/blog/modern-ui-design-perfect-color-palettes-ai","siteName":"toolixy","locale":"en_US"}
+twitter: {"card":"summary_large_image","title":"Modern UI Design: Create Perfect Color Palettes with AI-Powered Tools 2025","description":"Discover how AI-powered tools are revolutionizing UI design color palette creation. Learn modern techniques for creating stunning, accessible color schemes.","image":"/images/blog/modern-ui-design-perfect-color-palettes-ai.svg","creator":"@toolixy","site":"@toolixy"}
+schema: {"@context":"https://schema.org","@type":"Article","headline":"Modern UI Design: Creating Perfect Color Palettes with AI-Powered Tools","description":"Discover how AI-powered tools are revolutionizing UI design color palette creation. Learn modern techniques for creating stunning, accessible color schemes.","image":"/images/blog/modern-ui-design-perfect-color-palettes-ai.svg","author":{"@type":"Person","name":"Alex Rodriguez"},"publisher":{"@type":"Organization","name":"toolixy","logo":{"@type":"ImageObject","url":"https://toolixy.com/logo.png"}},"datePublished":"2025-12-14T10:00:00.000Z","dateModified":"2025-10-16","mainEntityOfPage":{"@type":"WebPage","@id":"https://toolixy.vercel.app/blog/modern-ui-design-perfect-color-palettes-ai"}}
 status: "draft"
+excerpt: "Modern UI Design: Creating Perfect Color Palettes with AI-Powered Tools The landscape of UI design has been transformed by artificial intelligence,..."
 ---
+
+
+
+
+
 
 # Modern UI Design: Creating Perfect Color Palettes with AI-Powered Tools
 

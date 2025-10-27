@@ -1,7 +1,7 @@
 ---
 title: "Design Inspiration: Color Trends That Will Define 2025"
 publishDate: "2025-10-30"
-lastModified: "2025-10-16"
+lastModified: "2025-10-24"
 tags: ["design inspiration", "color trends", "brand colors", "UI design", "design trends"]
 author:
   name: "Michael Chen"
@@ -10,8 +10,19 @@ featuredImage: "/images/blog/design-inspiration-color-trends.svg"
 metaTitle: "Design Inspiration: Color Trends 2025 - Define Your Brand"
 metaDescription: "Discover the color trends that will shape design in 2025. Get inspired with cutting-edge color palettes, brand strategies, and UI design innovations."
 keywords: ["design inspiration", "color trends 2025", "brand colors", "UI design trends", "color palettes", "design innovation"]
+readingTime: "8"
+canonical: "https://toolixy.vercel.app/blog/design-inspiration-color-trends"
+openGraph: {"type":"article","title":"Design Inspiration: Color Trends 2025 - Define Your Brand","description":"Discover the color trends that will shape design in 2025. Get inspired with cutting-edge color palettes, brand strategies, and UI design innovations.","image":"/images/blog/design-inspiration-color-trends.svg","url":"https://toolixy.vercel.app/blog/design-inspiration-color-trends","siteName":"toolixy","locale":"en_US"}
+twitter: {"card":"summary_large_image","title":"Design Inspiration: Color Trends 2025 - Define Your Brand","description":"Discover the color trends that will shape design in 2025. Get inspired with cutting-edge color palettes, brand strategies, and UI design innovations.","image":"/images/blog/design-inspiration-color-trends.svg","creator":"@toolixy","site":"@toolixy"}
+schema: {"@context":"https://schema.org","@type":"Article","headline":"Design Inspiration: Color Trends That Will Define 2025","description":"Discover the color trends that will shape design in 2025. Get inspired with cutting-edge color palettes, brand strategies, and UI design innovations.","image":"/images/blog/design-inspiration-color-trends.svg","author":{"@type":"Person","name":"Michael Chen"},"publisher":{"@type":"Organization","name":"toolixy","logo":{"@type":"ImageObject","url":"https://toolixy.com/logo.png"}},"datePublished":"2025-10-30","dateModified":"2025-10-16","mainEntityOfPage":{"@type":"WebPage","@id":"https://toolixy.vercel.app/blog/design-inspiration-color-trends"}}
 status: "draft"
+excerpt: "Design Inspiration: Color Trends That Will Define 2025 Color trends are more than just aesthetic choices—they reflect our collective consciousness,..."
 ---
+
+
+
+
+
 
 # Design Inspiration: Color Trends That Will Define 2025
 

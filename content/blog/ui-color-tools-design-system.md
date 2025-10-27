@@ -1,17 +1,28 @@
 ---
 title: "UI Color Tools and Design Systems: Build Consistent, Accessible Interfaces"
 publishDate: "2025-11-08"
-lastModified: "2025-10-16"
+lastModified: "2025-10-24"
 tags: ["UI color tools", "design system", "UI design", "brand colors", "accessibility"]
 author:
   name: "Michael Chen"
   avatar: "/images/authors/michael-chen.svg"
 featuredImage: "/images/blog/ui-color-tools-design-system.svg"
 metaTitle: "UI Color Tools and Design Systems 2025 - Build Accessible Interfaces"
-metaDescription: "Master UI color tools and design systems for consistent, accessible interfaces. Learn best practices for color tokens, accessibility, and design system implementation."
+metaDescription: "Master UI color tools and design systems for consistent, accessible interfaces. Learn best practices for color tokens, accessibility, and design system imple..."
 keywords: ["UI color tools", "design system", "UI design", "color tokens", "accessibility", "interface design"]
+readingTime: "9"
+canonical: "https://toolixy.vercel.app/blog/ui-color-tools-design-system"
+openGraph: {"type":"article","title":"UI Color Tools and Design Systems 2025 - Build Accessible Interfaces","description":"Master UI color tools and design systems for consistent, accessible interfaces. Learn best practices for color tokens, accessibility, and design system implementation.","image":"/images/blog/ui-color-tools-design-system.svg","url":"https://toolixy.vercel.app/blog/ui-color-tools-design-system","siteName":"toolixy","locale":"en_US"}
+twitter: {"card":"summary_large_image","title":"UI Color Tools and Design Systems 2025 - Build Accessible Interfaces","description":"Master UI color tools and design systems for consistent, accessible interfaces. Learn best practices for color tokens, accessibility, and design system implementation.","image":"/images/blog/ui-color-tools-design-system.svg","creator":"@toolixy","site":"@toolixy"}
+schema: {"@context":"https://schema.org","@type":"Article","headline":"UI Color Tools and Design Systems: Build Consistent, Accessible Interfaces","description":"Master UI color tools and design systems for consistent, accessible interfaces. Learn best practices for color tokens, accessibility, and design system implementation.","image":"/images/blog/ui-color-tools-design-system.svg","author":{"@type":"Person","name":"Michael Chen"},"publisher":{"@type":"Organization","name":"toolixy","logo":{"@type":"ImageObject","url":"https://toolixy.com/logo.png"}},"datePublished":"2025-11-08","dateModified":"2025-10-16","mainEntityOfPage":{"@type":"WebPage","@id":"https://toolixy.vercel.app/blog/ui-color-tools-design-system"}}
 status: "draft"
+excerpt: "UI Color Tools and Design Systems: Build Consistent, Accessible Interfaces In the world of modern UI design, color is more than just aesthetics—it's a..."
 ---
+
+
+
+
+
 
 # UI Color Tools and Design Systems: Build Consistent, Accessible Interfaces
 

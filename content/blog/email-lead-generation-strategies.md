@@ -1,17 +1,27 @@
 ---
 title: "Email Lead Generation Strategies: Build Your Prospect List Like a Pro"
 publishDate: "2025-10-26"
-lastModified: "2025-10-16"
+lastModified: "2025-10-24"
 tags: ["email lead generation", "lead generation", "email marketing", "prospecting", "sales"]
 author:
   name: "Sarah Johnson"
   avatar: "/images/authors/sarah-johnson.svg"
 featuredImage: "/images/blog/email-lead-generation-strategies.svg"
 metaTitle: "Email Lead Generation Strategies 2025 - Build Your Prospect List"
-metaDescription: "Master email lead generation with proven strategies. Learn how to build high-quality prospect lists, improve conversion rates, and scale your email marketing campaigns."
+metaDescription: "Master email lead generation with proven strategies. Learn how to build high-quality prospect lists, improve conversion rates, and scale your email marketing..."
 keywords: ["email lead generation", "lead generation strategies", "email prospecting", "sales leads", "email marketing", "prospect lists"]
-status: "draft"
+readingTime: "7"
+canonical: "https://toolixy.vercel.app/blog/email-lead-generation-strategies"
+openGraph: {"type":"article","title":"Email Lead Generation Strategies 2025 - Build Your Prospect List","description":"Master email lead generation with proven strategies. Learn how to build high-quality prospect lists, improve conversion rates, and scale your email marketing campaigns.","image":"/images/blog/email-lead-generation-strategies.svg","url":"https://toolixy.vercel.app/blog/email-lead-generation-strategies","siteName":"toolixy","locale":"en_US"}
+twitter: {"card":"summary_large_image","title":"Email Lead Generation Strategies 2025 - Build Your Prospect List","description":"Master email lead generation with proven strategies. Learn how to build high-quality prospect lists, improve conversion rates, and scale your email marketing campaigns.","image":"/images/blog/email-lead-generation-strategies.svg","creator":"@toolixy","site":"@toolixy"}
+schema: {"@context":"https://schema.org","@type":"Article","headline":"Email Lead Generation Strategies: Build Your Prospect List Like a Pro","description":"Master email lead generation with proven strategies. Learn how to build high-quality prospect lists, improve conversion rates, and scale your email marketing campaigns.","image":"/images/blog/email-lead-generation-strategies.svg","author":{"@type":"Person","name":"Sarah Johnson"},"publisher":{"@type":"Organization","name":"toolixy","logo":{"@type":"ImageObject","url":"https://toolixy.com/logo.png"}},"datePublished":"2025-10-26","dateModified":"2025-10-16","mainEntityOfPage":{"@type":"WebPage","@id":"https://toolixy.vercel.app/blog/email-lead-generation-strategies"}}
+excerpt: "Email Lead Generation Strategies: Build Your Prospect List Like a Pro Email lead generation remains one of the most effective ways to build your business, with..."
 ---
+
+
+
+
+
 
 # Email Lead Generation Strategies: Build Your Prospect List Like a Pro
 
