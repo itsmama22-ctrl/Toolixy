@@ -81,8 +81,21 @@ export default function ColorPaletteGeneratorClient({}: ColorPaletteGeneratorCli
       case 'complementary':
         const complement = chroma.hsl((base.get('hsl.h') + 180) % 360, base.get('hsl.s'), base.get('hsl.l'));
         colors = [base.hex(), complement.hex()];
+        // Generate variations to reach the requested count
         for (let i = 2; i < count; i++) {
-          const variation = base.set('hsl.l', base.get('hsl.l') + (i % 2 === 0 ? 0.15 : -0.15));
+          if (i % 2 === 0) {
+            // Use the base color with varying lightness
+            const variation = base.set('hsl.l', base.get('hsl.l') + (i / count * 0.3));
+            colors.push(variation.hex());
+          } else {
+            // Use the complement with varying lightness
+            const variation = complement.set('hsl.l', complement.get('hsl.l') + ((i - 1) / count * 0.3));
+            colors.push(variation.hex());
+          }
+        }
+        // If still not enough, add more variations
+        while (colors.length < count) {
+          const variation = base.set('hsl.l', base.get('hsl.l') - (colors.length * 0.1));
           colors.push(variation.hex());
         }
         break;
@@ -98,20 +111,31 @@ export default function ColorPaletteGeneratorClient({}: ColorPaletteGeneratorCli
         
       case 'triadic':
         const triHue = base.get('hsl.h');
-        for (let i = 0; i < 3; i++) {
-          const newHue = (triHue + (i * 120)) % 360;
-          const triadicColor = chroma.hsl(newHue, base.get('hsl.s'), base.get('hsl.l'));
-          colors.push(triadicColor.hex());
-        }
-        for (let i = 3; i < count; i++) {
-          const shadeColor = base.set('hsl.l', base.get('hsl.l') + (i % 2 === 0 ? 0.2 : -0.2));
-          colors.push(shadeColor.hex());
+        // Generate the base triadic colors
+        const triadicBase = chroma.hsl(triHue, base.get('hsl.s'), base.get('hsl.l'));
+        const triadic1 = chroma.hsl((triHue + 120) % 360, base.get('hsl.s'), base.get('hsl.l'));
+        const triadic2 = chroma.hsl((triHue + 240) % 360, base.get('hsl.s'), base.get('hsl.l'));
+        
+        // Add all base triadic colors
+        colors.push(triadicBase.hex());
+        colors.push(triadic1.hex());
+        colors.push(triadic2.hex());
+        
+        // Generate variations of each triadic color to reach count
+        let variationIndex = 0;
+        while (colors.length < count) {
+          const triadicColors = [triadicBase, triadic1, triadic2];
+          const selectedColor = triadicColors[variationIndex % 3];
+          const lightnessOffset = (Math.floor(variationIndex / 3) + 1) * 0.15;
+          const variation = selectedColor.set('hsl.l', selectedColor.get('hsl.l') + lightnessOffset);
+          colors.push(variation.hex());
+          variationIndex++;
         }
         break;
         
       case 'monochromatic':
         for (let i = 0; i < count; i++) {
-          const lightness = 0.1 + (i * (0.8 / (count - 1)));
+          const lightness = 0.1 + (i * (0.8 / Math.max(1, count - 1)));
           const monoColor = chroma.hsl(base.get('hsl.h'), base.get('hsl.s'), lightness);
           colors.push(monoColor.hex());
         }
@@ -125,6 +149,11 @@ export default function ColorPaletteGeneratorClient({}: ColorPaletteGeneratorCli
           colors.push(randomColor.hex());
         }
         break;
+    }
+    
+    // Ensure we have exactly the requested count
+    if (colors.length > count) {
+      colors = colors.slice(0, count);
     }
     
     // Convert to Color[] format
