@@ -34,15 +34,30 @@ export async function extractColorsFromImage(
         
         // Resize image to speed up processing
         const maxDimension = 200;
-        const width = img.width > img.height 
-          ? maxDimension 
-          : (img.width / img.height) * maxDimension;
-        const height = img.height > img.width 
-          ? maxDimension 
-          : (img.height / img.width) * maxDimension;
+        let width = img.width;
+        let height = img.height;
+        
+        // Calculate scaling to fit within maxDimension
+        if (width > height) {
+          if (width > maxDimension) {
+            height = (height / width) * maxDimension;
+            width = maxDimension;
+          }
+        } else {
+          if (height > maxDimension) {
+            width = (width / height) * maxDimension;
+            height = maxDimension;
+          }
+        }
+        
+        // Ensure minimum dimensions
+        width = Math.max(width, 1);
+        height = Math.max(height, 1);
         
         canvas.width = width;
         canvas.height = height;
+        
+        console.log(`Canvas dimensions: ${width}x${height}`);
         
         // Draw image to canvas
         ctx.drawImage(img, 0, 0, width, height);
@@ -53,6 +68,8 @@ export async function extractColorsFromImage(
         
         // Extract pixels and create color clusters
         const pixels: string[] = [];
+        const pixelCount = data.length / 4;
+        console.log(`Processing ${pixelCount} pixels`);
         
         // Sample every 10th pixel for performance
         for (let i = 0; i < data.length; i += 40) {
@@ -62,14 +79,21 @@ export async function extractColorsFromImage(
           const a = data[i + 3];
           
           // Skip transparent or nearly transparent pixels
-          if (a > 128) {
-            const hex = chroma(rgb(r, g, b)).hex();
-            pixels.push(hex);
+          if (a > 128 && r !== undefined && g !== undefined && b !== undefined) {
+            try {
+              const hex = chroma.rgb(r, g, b).hex();
+              pixels.push(hex);
+            } catch (err) {
+              console.error('Error converting to hex:', err, { r, g, b });
+            }
           }
         }
         
+        console.log(`Extracted ${pixels.length} pixel colors`);
+        
         // Use chroma to get the most distinct colors
         const distinctColors = getDistinctColors(pixels, colorCount);
+        console.log(`Returning ${distinctColors.length} distinct colors`);
         resolve(distinctColors);
       } catch (error) {
         reject(error);
