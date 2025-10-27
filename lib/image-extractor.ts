@@ -122,7 +122,7 @@ export async function extractColorsFromImage(
 
 /**
  * Extract optimal distinct colors from pixel array
- * Uses k-means-like clustering for better color selection
+ * Uses better clustering for distinct color selection
  */
 function getOptimalDistinctColors(pixels: string[], count: number): string[] {
   if (pixels.length === 0) return [];
@@ -141,50 +141,91 @@ function getOptimalDistinctColors(pixels: string[], count: number): string[] {
   
   console.log(`Clustering ${sampledPixels.length} pixels for ${count} colors`);
   
-  // Group colors by similarity
-  const colorGroups: { color: chroma.Color; pixels: chroma.Color[] }[] = [];
+  // Group colors by similarity using a better distance metric
+  const colorGroups: { color: chroma.Color; pixels: chroma.Color[]; frequency: number }[] = [];
   
   sampledPixels.forEach((hex) => {
     try {
       const color = chroma(hex);
       
+      // Calculate color properties
+      const lab = color.lab();
+      const hsl = color.hsl();
+      
       // Find or create a group for this color
       let foundGroup = false;
       
       for (const group of colorGroups) {
-        if (group.pixels.length < 100 && (color as any).deltaE(group.color) < 30) {
+        const groupLab = group.color.lab();
+        const groupHsl = group.color.hsl();
+        
+        // Use multiple metrics for better matching
+        const deltaE = Math.abs(lab[0] - groupLab[0]);
+        const hueDiff = Math.abs(hsl[0] - groupHsl[0]);
+        
+        // More lenient matching to allow more groups
+        if (deltaE < 40 && Math.min(hueDiff, 360 - hueDiff) < 30) {
           group.pixels.push(color);
+          group.frequency++;
           foundGroup = true;
           break;
         }
       }
       
       if (!foundGroup) {
-        colorGroups.push({ color, pixels: [color] });
+        colorGroups.push({ color, pixels: [color], frequency: 1 });
       }
     } catch (err) {
       console.warn('Skipping invalid hex:', hex);
     }
   });
   
-  // Sort groups by size (frequency)
-  colorGroups.sort((a, b) => b.pixels.length - a.pixels.length);
+  // Sort groups by frequency and diversity
+  colorGroups.sort((a, b) => {
+    if (Math.abs(a.frequency - b.frequency) > 5) {
+      return b.frequency - a.frequency;
+    }
+    // Prefer colors with more saturation for diversity
+    return b.color.get('hsl.s') - a.color.get('hsl.s');
+  });
   
   // Select the most representative color from each group
   const selectedColors: string[] = [];
+  const minDistance = 25; // Minimum color distance to avoid duplicates
   
-  // Take colors from different parts of the brightness spectrum
-  for (let i = 0; i < Math.min(count, colorGroups.length); i++) {
-    selectedColors.push(colorGroups[i].color.hex());
+  for (const group of colorGroups) {
+    if (selectedColors.length >= count) break;
+    
+    const currentColor = group.color;
+    let isDistinct = true;
+    
+    // Check if this color is sufficiently different from already selected colors
+    for (const existingHex of selectedColors) {
+      try {
+        const existingColor = chroma(existingHex);
+        const currentLab = currentColor.lab();
+        const existingLab = existingColor.lab();
+        const distance = Math.sqrt(
+          Math.pow(currentLab[0] - existingLab[0], 2) +
+          Math.pow(currentLab[1] - existingLab[1], 2) +
+          Math.pow(currentLab[2] - existingLab[2], 2)
+        );
+        
+        if (distance < minDistance) {
+          isDistinct = false;
+          break;
+        }
+      } catch (e) {
+        // If comparison fails, consider it distinct
+      }
+    }
+    
+    if (isDistinct) {
+      selectedColors.push(currentColor.hex());
+    }
   }
   
-  // If we don't have enough distinct colors, generate variations
-  while (selectedColors.length < count && colorGroups.length > 0) {
-    // Create variations of the most common colors
-    const baseColor = chroma(colorGroups[0].color.hex());
-    const variation = baseColor.set('hsl.l', baseColor.get('hsl.l') + (selectedColors.length % 2 === 0 ? 0.2 : -0.2));
-    selectedColors.push(variation.hex());
-  }
+  console.log(`Selected ${selectedColors.length} distinct colors from ${colorGroups.length} groups`);
   
   return selectedColors.slice(0, count);
 }
