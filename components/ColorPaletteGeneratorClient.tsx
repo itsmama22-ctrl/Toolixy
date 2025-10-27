@@ -331,12 +331,23 @@ export default function ColorPaletteGeneratorClient({}: ColorPaletteGeneratorCli
       reader.onload = async (e) => {
         try {
           const result = e.target?.result as string;
-          console.log('Image loaded, extracting colors...');
+          console.log('FileReader successful, data length:', result.length);
+          console.log('First 100 chars:', result.substring(0, 100));
+          
           setImagePreview(result);
+          
+          // Wait a bit to ensure image is ready
+          await new Promise(resolve => setTimeout(resolve, 100));
+          
+          console.log('Starting color extraction...');
           
           // Extract colors from image
           const extractedColors = await extractColorsFromImage(result, colorCount);
           console.log('Extracted colors:', extractedColors);
+          
+          if (!extractedColors || extractedColors.length === 0) {
+            throw new Error('No colors were extracted from the image');
+          }
           
           // Convert to Color[] format
           const colors = extractedColors.map((hex, index) => {
@@ -359,11 +370,11 @@ export default function ColorPaletteGeneratorClient({}: ColorPaletteGeneratorCli
           trackColorPaletteGeneration('image', colors.length);
           trackToolUsage('color_palette', 'extract_from_image', { palette_size: colors.length });
           
-          toast.success('Colors extracted from image!');
+          toast.success(`Colors extracted from image! (${colors.length} colors)`);
           setIsLoading(false);
         } catch (error) {
           console.error('Error extracting colors:', error);
-          toast.error('Failed to extract colors from image');
+          toast.error(`Failed to extract colors from image: ${error instanceof Error ? error.message : 'Unknown error'}`);
           setIsLoading(false);
         }
       };
