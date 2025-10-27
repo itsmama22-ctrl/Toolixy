@@ -1,14 +1,14 @@
 'use client';
 
 import React, { useState, useCallback, useRef, useEffect } from 'react';
-import { Palette, Upload, Download, Copy, RefreshCw, Image, Loader2, Eye, Sparkles, HelpCircle, FileImage, FileText } from 'lucide-react';
+import { Palette, Upload, Download, Copy, RefreshCw, Image as ImageIcon, Loader2, Eye, Sparkles, HelpCircle, FileImage, FileText, Wand2, UploadCloud } from 'lucide-react';
 import { ColorPaletteSkeleton } from './LoadingSkeleton';
 import { ChromePicker } from 'react-color';
 import { useDropzone } from 'react-dropzone';
 import toast from 'react-hot-toast';
 import { saveAs } from 'file-saver';
 import chroma from 'chroma-js';
-import { toPng, toSvg } from 'html-to-image';
+import { toPng } from 'html-to-image';
 import type { Color } from '@/types';
 import { trackColorPaletteGeneration, trackToolUsage, trackFileDownload } from '@/lib/analytics';
 import { 
@@ -18,94 +18,11 @@ import {
   rgbToHsl, 
   rgbToHex
 } from '@/lib/utils';
+import { extractColorsFromImage, generateThemeColors } from '@/lib/image-extractor';
 
 // Palette type definitions
 type PaletteType = 'complementary' | 'analogous' | 'triadic' | 'monochromatic' | 'random';
-
-interface ColorVariations {
-  complementary?: Color[];
-  analogous?: Color[];
-  triadic?: Color[];
-  monochromatic?: Color[];
-}
-
-// Generate harmonious color palettes using chroma.js
-const generateColorPalette = (baseColor: string, type: PaletteType, count: number = 5): Color[] => {
-  const base = chroma(baseColor);
-  
-  let colors: string[] = [];
-  
-  switch (type) {
-    case 'complementary':
-      // Complementary colors (opposite on color wheel)
-      const complement = chroma.hsl((base.get('hsl.h') + 180) % 360, base.get('hsl.s'), base.get('hsl.l'));
-      colors = [base.hex(), complement.hex()];
-      // Add variations
-      for (let i = 2; i < count; i++) {
-        const variation = base.set('hsl.l', base.get('hsl.l') + (i % 2 === 0 ? 0.15 : -0.15));
-        colors.push(variation.hex());
-      }
-      break;
-      
-    case 'analogous':
-      // Analogous colors (adjacent hues)
-      const hue = base.get('hsl.h');
-      for (let i = 0; i < count; i++) {
-        const newHue = (hue + (i * 30 - (count - 1) * 15)) % 360;
-        const analogousColor = chroma.hsl(newHue, base.get('hsl.s'), base.get('hsl.l'));
-        colors.push(analogousColor.hex());
-      }
-      break;
-      
-    case 'triadic':
-      // Triadic colors (120 degrees apart)
-      const triHue = base.get('hsl.h');
-      for (let i = 0; i < 3; i++) {
-        const newHue = (triHue + (i * 120)) % 360;
-        const triadicColor = chroma.hsl(newHue, base.get('hsl.s'), base.get('hsl.l'));
-        colors.push(triadicColor.hex());
-      }
-      // Add shades
-      for (let i = 3; i < count; i++) {
-        const shadeColor = base.set('hsl.l', base.get('hsl.l') + (i % 2 === 0 ? 0.2 : -0.2));
-        colors.push(shadeColor.hex());
-      }
-      break;
-      
-    case 'monochromatic':
-      // Monochromatic (same hue, varying lightness/saturation)
-      for (let i = 0; i < count; i++) {
-        const lightness = 0.1 + (i * (0.8 / (count - 1)));
-        const monoColor = chroma.hsl(base.get('hsl.h'), base.get('hsl.s'), lightness);
-        colors.push(monoColor.hex());
-      }
-      break;
-      
-    case 'random':
-    default:
-      // Random colors with good saturation and lightness
-      for (let i = 0; i < count; i++) {
-        const randomHue = Math.random() * 360;
-        const randomColor = chroma.hsl(randomHue, 0.5 + Math.random() * 0.3, 0.4 + Math.random() * 0.3);
-        colors.push(randomColor.hex());
-      }
-      break;
-  }
-  
-  // Convert to Color[] format
-  return colors.map((hex, index) => {
-    const chromaColor = chroma(hex);
-    const rgb = chromaColor.rgb();
-    const hsl = chromaColor.hsl();
-    
-    return {
-      hex: chromaColor.hex(),
-      rgb: { r: rgb[0], g: rgb[1], b: rgb[2] },
-      hsl: { h: hsl[0], s: hsl[1], l: hsl[2] },
-      name: `Color ${index + 1}`
-    };
-  });
-};
+type GenerationMode = 'manual' | 'image' | 'theme';
 
 // Simple Tooltip Component
 const Tooltip = ({ children, content, position = 'top' }: { children: React.ReactNode; content: string; position?: 'top' | 'bottom' | 'left' | 'right' }) => {
@@ -142,19 +59,88 @@ interface ColorPaletteGeneratorClientProps {}
 
 export default function ColorPaletteGeneratorClient({}: ColorPaletteGeneratorClientProps) {
   const [palette, setPalette] = useState<Color[]>([]);
-  const [variations, setVariations] = useState<ColorVariations | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [showColorPicker, setShowColorPicker] = useState(false);
   const [selectedColor, setSelectedColor] = useState('#3b82f6');
-  const [paletteName, setPaletteName] = useState('');
   const [colorCount, setColorCount] = useState(5);
   const [paletteType, setPaletteType] = useState<PaletteType>('random');
+  const [generationMode, setGenerationMode] = useState<GenerationMode>('manual');
   const [imagePreview, setImagePreview] = useState<string | null>(null);
-  const [extractedImageColors, setExtractedImageColors] = useState<Color[]>([]);
+  const [themeInput, setThemeInput] = useState('');
   
   const colorPickerRef = useRef<HTMLDivElement>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
   const paletteRef = useRef<HTMLDivElement>(null);
+
+  // Generate harmonious color palettes using chroma.js
+  const generateColorPalette = useCallback((baseColor: string, type: PaletteType, count: number = 5): Color[] => {
+    const base = chroma(baseColor);
+    
+    let colors: string[] = [];
+    
+    switch (type) {
+      case 'complementary':
+        const complement = chroma.hsl((base.get('hsl.h') + 180) % 360, base.get('hsl.s'), base.get('hsl.l'));
+        colors = [base.hex(), complement.hex()];
+        for (let i = 2; i < count; i++) {
+          const variation = base.set('hsl.l', base.get('hsl.l') + (i % 2 === 0 ? 0.15 : -0.15));
+          colors.push(variation.hex());
+        }
+        break;
+        
+      case 'analogous':
+        const hue = base.get('hsl.h');
+        for (let i = 0; i < count; i++) {
+          const newHue = (hue + (i * 30 - (count - 1) * 15)) % 360;
+          const analogousColor = chroma.hsl(newHue, base.get('hsl.s'), base.get('hsl.l'));
+          colors.push(analogousColor.hex());
+        }
+        break;
+        
+      case 'triadic':
+        const triHue = base.get('hsl.h');
+        for (let i = 0; i < 3; i++) {
+          const newHue = (triHue + (i * 120)) % 360;
+          const triadicColor = chroma.hsl(newHue, base.get('hsl.s'), base.get('hsl.l'));
+          colors.push(triadicColor.hex());
+        }
+        for (let i = 3; i < count; i++) {
+          const shadeColor = base.set('hsl.l', base.get('hsl.l') + (i % 2 === 0 ? 0.2 : -0.2));
+          colors.push(shadeColor.hex());
+        }
+        break;
+        
+      case 'monochromatic':
+        for (let i = 0; i < count; i++) {
+          const lightness = 0.1 + (i * (0.8 / (count - 1)));
+          const monoColor = chroma.hsl(base.get('hsl.h'), base.get('hsl.s'), lightness);
+          colors.push(monoColor.hex());
+        }
+        break;
+        
+      case 'random':
+      default:
+        for (let i = 0; i < count; i++) {
+          const randomHue = Math.random() * 360;
+          const randomColor = chroma.hsl(randomHue, 0.5 + Math.random() * 0.3, 0.4 + Math.random() * 0.3);
+          colors.push(randomColor.hex());
+        }
+        break;
+    }
+    
+    // Convert to Color[] format
+    return colors.map((hex, index) => {
+      const chromaColor = chroma(hex);
+      const rgb = chromaColor.rgb();
+      const hsl = chromaColor.hsl();
+      
+      return {
+        hex: chromaColor.hex(),
+        rgb: { r: rgb[0], g: rgb[1], b: rgb[2] },
+        hsl: { h: hsl[0], s: hsl[1], l: hsl[2] },
+        name: `Color ${index + 1}`
+      };
+    });
+  }, []);
 
   // Close color picker when clicking outside
   useEffect(() => {
@@ -173,37 +159,74 @@ export default function ColorPaletteGeneratorClient({}: ColorPaletteGeneratorCli
     };
   }, [showColorPicker]);
 
-  // Generate palette based on type
-  const generatePalette = useCallback(() => {
-    setIsLoading(true);
-    
-    setTimeout(() => {
-      const colors = generateColorPalette(selectedColor, paletteType, colorCount);
-      setPalette(colors);
-      setVariations(null);
-      setImagePreview(null);
-      setExtractedImageColors([]);
-      
-      // Track generation
-      trackColorPaletteGeneration(paletteType, colorCount);
-      trackToolUsage('color_palette', 'generate', { palette_type: paletteType, palette_size: colorCount });
-      
-      toast.success(`Generated ${paletteType} palette with ${colorCount} colors!`);
-      setIsLoading(false);
-    }, 300);
-  }, [selectedColor, paletteType, colorCount]);
-
   // Initial random palette
   useEffect(() => {
     const colors = generateColorPalette('#3b82f6', 'random', colorCount);
     setPalette(colors);
   }, []);
 
+  // Generate palette based on mode
+  const generatePalette = useCallback(async () => {
+    setIsLoading(true);
+    
+    try {
+      let colors: Color[] = [];
+      
+      if (generationMode === 'manual') {
+        colors = generateColorPalette(selectedColor, paletteType, colorCount);
+      } else if (generationMode === 'theme') {
+        if (!themeInput.trim()) {
+          toast.error('Please enter a theme or mood');
+          setIsLoading(false);
+          return;
+        }
+        
+        // Generate theme-based colors
+        const hexColors = generateThemeColors(themeInput, colorCount);
+        colors = hexColors.map((hex, index) => {
+          const chromaColor = chroma(hex);
+          const rgb = chromaColor.rgb();
+          const hsl = chromaColor.hsl();
+          
+          return {
+            hex: chromaColor.hex(),
+            rgb: { r: rgb[0], g: rgb[1], b: rgb[2] },
+            hsl: { h: hsl[0], s: hsl[1], l: hsl[2] },
+            name: `Color ${index + 1}`
+          };
+        });
+      }
+      
+      setPalette(colors);
+      setImagePreview(null);
+      
+      // Track generation
+      trackColorPaletteGeneration(
+        generationMode === 'manual' ? paletteType : generationMode, 
+        colorCount
+      );
+      trackToolUsage('color_palette', 'generate', { 
+        palette_type: paletteType, 
+        palette_size: colorCount,
+        generation_mode: generationMode
+      });
+      
+      const modeName = generationMode === 'manual' ? paletteType : 
+                      generationMode === 'theme' ? 'theme-based' : 'image-based';
+      toast.success(`Generated ${modeName} palette with ${colorCount} colors!`);
+    } catch (error) {
+      console.error('Error generating palette:', error);
+      toast.error('Failed to generate palette');
+    } finally {
+      setIsLoading(false);
+    }
+  }, [selectedColor, paletteType, colorCount, generationMode, themeInput, generateColorPalette]);
+
   // Download palette as JSON
   const downloadJSON = useCallback(async () => {
     try {
       const jsonData = {
-        type: paletteType,
+        type: generationMode === 'manual' ? paletteType : generationMode,
         colors: palette.map(c => ({
           hex: c.hex,
           rgb: c.rgb,
@@ -222,7 +245,7 @@ export default function ColorPaletteGeneratorClient({}: ColorPaletteGeneratorCli
       console.error('Error downloading JSON:', error);
       toast.error('Failed to export JSON');
     }
-  }, [palette, paletteType]);
+  }, [palette, paletteType, generationMode]);
 
   // Download palette as PNG
   const downloadPNG = useCallback(async () => {
@@ -267,26 +290,57 @@ export default function ColorPaletteGeneratorClient({}: ColorPaletteGeneratorCli
   }, []);
 
   // Handle image upload
-  const onDrop = useCallback((acceptedFiles: File[]) => {
+  const onDrop = useCallback(async (acceptedFiles: File[]) => {
     const file = acceptedFiles[0];
     if (!file) return;
 
-    const reader = new FileReader();
-    reader.onload = async (e) => {
-      const result = e.target?.result as string;
-      setImagePreview(result);
+    setIsLoading(true);
+    
+    try {
+      const reader = new FileReader();
       
-      // Extract colors from image (simplified - you can enhance this)
-      setIsLoading(true);
-      setTimeout(() => {
-        const extracted = generateColorPalette('#3b82f6', 'analogous', colorCount);
-        setExtractedImageColors(extracted);
-        setPalette(extracted);
-        setIsLoading(false);
+      reader.onload = async (e) => {
+        const result = e.target?.result as string;
+        setImagePreview(result);
+        
+        // Extract colors from image
+        const extractedColors = await extractColorsFromImage(result, colorCount);
+        
+        // Convert to Color[] format
+        const colors = extractedColors.map((hex, index) => {
+          const chromaColor = chroma(hex);
+          const rgb = chromaColor.rgb();
+          const hsl = chromaColor.hsl();
+          
+          return {
+            hex: chromaColor.hex(),
+            rgb: { r: rgb[0], g: rgb[1], b: rgb[2] },
+            hsl: { h: hsl[0], s: hsl[1], l: hsl[2] },
+            name: `Color ${index + 1}`
+          };
+        });
+        
+        setPalette(colors);
+        setGenerationMode('image');
+        
+        trackColorPaletteGeneration('image', colors.length);
+        trackToolUsage('color_palette', 'extract_from_image', { palette_size: colors.length });
+        
         toast.success('Colors extracted from image!');
-      }, 500);
-    };
-    reader.readAsDataURL(file);
+        setIsLoading(false);
+      };
+      
+      reader.onerror = () => {
+        toast.error('Failed to read image file');
+        setIsLoading(false);
+      };
+      
+      reader.readAsDataURL(file);
+    } catch (error) {
+      console.error('Error processing image:', error);
+      toast.error('Failed to extract colors from image');
+      setIsLoading(false);
+    }
   }, [colorCount]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -313,79 +367,142 @@ export default function ColorPaletteGeneratorClient({}: ColorPaletteGeneratorCli
           <Palette className="w-12 h-12 text-primary-600" />
         </div>
         <h1 className="text-4xl font-bold text-gray-900 mb-4">
-          Color Palette Generator
+          Advanced Color Palette Generator
         </h1>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          Create harmonious color palettes with professional algorithms. Generate beautiful, aesthetic color combinations using advanced color theory.
+          Create harmonious color palettes using manual generation, AI-powered themes, or image extraction.
+          Export your palettes as PNG or JSON.
         </p>
       </div>
 
+      {/* Generation Mode Tabs */}
+      <div className="bg-white rounded-2xl shadow-medium p-2 mb-8">
+        <div className="flex gap-2">
+          <button
+            onClick={() => setGenerationMode('manual')}
+            className={`flex-1 flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-semibold transition-all ${
+              generationMode === 'manual'
+                ? 'bg-primary-600 text-white shadow-lg'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            }`}
+          >
+            <Sparkles className="w-5 h-5" />
+            Manual Generation
+          </button>
+          <button
+            onClick={() => setGenerationMode('image')}
+            className={`flex-1 flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-semibold transition-all ${
+              generationMode === 'image'
+                ? 'bg-primary-600 text-white shadow-lg'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            }`}
+          >
+            <ImageIcon className="w-5 h-5" />
+            From Image
+          </button>
+          <button
+            onClick={() => setGenerationMode('theme')}
+            className={`flex-1 flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-semibold transition-all ${
+              generationMode === 'theme'
+                ? 'bg-primary-600 text-white shadow-lg'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            }`}
+          >
+            <Wand2 className="w-5 h-5" />
+            AI Theme-Based
+          </button>
+        </div>
+      </div>
+
       {/* Controls */}
-      <div className="bg-white rounded-2xl shadow-medium p-6 mb-8">
-        <div className="grid md:grid-cols-3 gap-6">
-          {/* Color Picker */}
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
-              Base Color
-            </label>
-            <div className="relative">
-              <button
-                onClick={() => setShowColorPicker(!showColorPicker)}
-                className="w-full h-12 rounded-xl border-2 border-gray-300 flex items-center justify-center hover:border-primary-500 transition-colors"
-                style={{ backgroundColor: selectedColor }}
+      {generationMode === 'manual' && (
+        <div className="bg-white rounded-2xl shadow-medium p-6 mb-8">
+          <div className="grid md:grid-cols-3 gap-6">
+            {/* Color Picker */}
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Base Color
+              </label>
+              <div className="relative">
+                <button
+                  onClick={() => setShowColorPicker(!showColorPicker)}
+                  className="w-full h-12 rounded-xl border-2 border-gray-300 flex items-center justify-center hover:border-primary-500 transition-colors"
+                  style={{ backgroundColor: selectedColor }}
+                >
+                  <span className="text-white font-semibold drop-shadow-lg">{selectedColor}</span>
+                </button>
+                {showColorPicker && (
+                  <div ref={colorPickerRef} className="absolute top-full left-0 mt-2 z-50">
+                    <ChromePicker
+                      color={selectedColor}
+                      onChange={(color) => setSelectedColor(color.hex)}
+                    />
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Palette Type */}
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Palette Type
+              </label>
+              <select
+                value={paletteType}
+                onChange={(e) => setPaletteType(e.target.value as PaletteType)}
+                className="w-full h-12 px-4 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               >
-                <span className="text-white font-semibold drop-shadow-lg">{selectedColor}</span>
-              </button>
-              {showColorPicker && (
-                <div ref={colorPickerRef} className="absolute top-full left-0 mt-2 z-50">
-                  <ChromePicker
-                    color={selectedColor}
-                    onChange={(color) => setSelectedColor(color.hex)}
-                  />
-                </div>
-              )}
+                {paletteTypes.map((type) => (
+                  <option key={type.value} value={type.value}>
+                    {type.label}
+                  </option>
+                ))}
+              </select>
+              <Tooltip content={paletteTypes.find(t => t.value === paletteType)?.description || ''}>
+                <HelpCircle className="w-4 h-4 text-gray-400 mt-1" />
+              </Tooltip>
+            </div>
+
+            {/* Color Count */}
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Number of Colors
+              </label>
+              <input
+                type="number"
+                min="3"
+                max="10"
+                value={colorCount}
+                onChange={(e) => setColorCount(Math.min(10, Math.max(3, parseInt(e.target.value) || 5)))}
+                className="w-full h-12 px-4 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              />
             </div>
           </div>
-
-          {/* Palette Type */}
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
-              Palette Type
-            </label>
-            <select
-              value={paletteType}
-              onChange={(e) => setPaletteType(e.target.value as PaletteType)}
-              className="w-full h-12 px-4 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-            >
-              {paletteTypes.map((type) => (
-                <option key={type.value} value={type.value}>
-                  {type.label}
-                </option>
-              ))}
-            </select>
-            <Tooltip content={paletteTypes.find(t => t.value === paletteType)?.description || ''}>
-              <HelpCircle className="w-4 h-4 text-gray-400 mt-1" />
-            </Tooltip>
-          </div>
-
-          {/* Color Count */}
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
-              Number of Colors
-            </label>
-            <input
-              type="number"
-              min="3"
-              max="10"
-              value={colorCount}
-              onChange={(e) => setColorCount(Math.min(10, Math.max(3, parseInt(e.target.value) || 5)))}
-              className="w-full h-12 px-4 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-            />
-          </div>
         </div>
+      )}
 
-        {/* Action Buttons */}
-        <div className="flex flex-wrap gap-3 mt-6">
+      {/* Theme Input */}
+      {generationMode === 'theme' && (
+        <div className="bg-white rounded-2xl shadow-medium p-6 mb-8">
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
+            Enter a theme or mood
+          </label>
+          <input
+            type="text"
+            value={themeInput}
+            onChange={(e) => setThemeInput(e.target.value)}
+            placeholder="e.g., sunset beach, cyberpunk city, minimal nature, warm coffee..."
+            className="w-full h-12 px-4 border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+          />
+          <p className="text-sm text-gray-500 mt-2">
+            Describe your ideal color palette and our AI will generate matching colors
+          </p>
+        </div>
+      )}
+
+      {/* Action Buttons */}
+      <div className="flex flex-wrap gap-3 mb-8">
+        {(generationMode === 'manual' || generationMode === 'theme') && (
           <button
             onClick={generatePalette}
             disabled={isLoading}
@@ -403,35 +520,62 @@ export default function ColorPaletteGeneratorClient({}: ColorPaletteGeneratorCli
               </>
             )}
           </button>
+        )}
 
-          <button
-            onClick={copyAllColors}
-            className="btn-secondary flex items-center justify-center gap-2"
-            disabled={palette.length === 0}
-          >
-            <Copy className="w-4 h-4" />
-            Copy All Colors
-          </button>
+        <button
+          onClick={copyAllColors}
+          className="btn-secondary flex items-center justify-center gap-2"
+          disabled={palette.length === 0}
+        >
+          <Copy className="w-4 h-4" />
+          Copy All Colors
+        </button>
 
-          <button
-            onClick={downloadJSON}
-            className="btn-secondary flex items-center justify-center gap-2"
-            disabled={palette.length === 0}
-          >
-            <FileText className="w-4 h-4" />
-            Export JSON
-          </button>
+        <button
+          onClick={downloadJSON}
+          className="btn-secondary flex items-center justify-center gap-2"
+          disabled={palette.length === 0}
+        >
+          <FileText className="w-4 h-4" />
+          Export JSON
+        </button>
 
-          <button
-            onClick={downloadPNG}
-            className="btn-secondary flex items-center justify-center gap-2"
-            disabled={palette.length === 0}
-          >
-            <FileImage className="w-4 h-4" />
-            Export PNG
-          </button>
-        </div>
+        <button
+          onClick={downloadPNG}
+          className="btn-secondary flex items-center justify-center gap-2"
+          disabled={palette.length === 0}
+        >
+          <FileImage className="w-4 h-4" />
+          Export PNG
+        </button>
       </div>
+
+      {/* Image Upload (for Image mode) */}
+      {generationMode === 'image' && (
+        <div className="bg-white rounded-2xl shadow-medium p-6 mb-8">
+          <h3 className="text-xl font-semibold text-gray-900 mb-4">Extract Colors from Image</h3>
+          <div
+            {...getRootProps()}
+            className="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center cursor-pointer hover:border-primary-500 transition-colors"
+          >
+            <input {...getInputProps()} />
+            <UploadCloud className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+            {isDragActive ? (
+              <p className="text-primary-600 font-semibold">Drop the image here...</p>
+            ) : (
+              <div>
+                <p className="text-gray-600 mb-2">Drag & drop an image here, or click to browse</p>
+                <p className="text-sm text-gray-500">Supports PNG, JPG, JPEG, GIF, WebP</p>
+              </div>
+            )}
+          </div>
+          {imagePreview && (
+            <div className="mt-4">
+              <img src={imagePreview} alt="Preview" className="max-w-full h-32 object-contain rounded-lg" />
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Palette Display */}
       {isLoading ? (
@@ -473,26 +617,6 @@ export default function ColorPaletteGeneratorClient({}: ColorPaletteGeneratorCli
           </div>
         </div>
       )}
-
-      {/* Image Upload */}
-      <div className="mt-8 bg-gradient-to-br from-primary-50 to-secondary-50 rounded-2xl shadow-medium p-6">
-        <h3 className="text-xl font-semibold text-gray-900 mb-4">Extract Colors from Image</h3>
-        <div
-          {...getRootProps()}
-          className="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center cursor-pointer hover:border-primary-500 transition-colors"
-        >
-          <input {...getInputProps()} />
-          <Image className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-          {isDragActive ? (
-            <p className="text-primary-600 font-semibold">Drop the image here...</p>
-          ) : (
-            <div>
-              <p className="text-gray-600 mb-2">Drag & drop an image here, or click to browse</p>
-              <p className="text-sm text-gray-500">Supports PNG, JPG, JPEG, GIF, WebP</p>
-            </div>
-          )}
-        </div>
-      </div>
     </div>
   );
 }
