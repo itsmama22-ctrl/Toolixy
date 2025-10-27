@@ -329,37 +329,47 @@ export default function ColorPaletteGeneratorClient({}: ColorPaletteGeneratorCli
       const reader = new FileReader();
       
       reader.onload = async (e) => {
-        const result = e.target?.result as string;
-        setImagePreview(result);
-        
-        // Extract colors from image
-        const extractedColors = await extractColorsFromImage(result, colorCount);
-        
-        // Convert to Color[] format
-        const colors = extractedColors.map((hex, index) => {
-          const chromaColor = chroma(hex);
-          const rgb = chromaColor.rgb();
-          const hsl = chromaColor.hsl();
+        try {
+          const result = e.target?.result as string;
+          console.log('Image loaded, extracting colors...');
+          setImagePreview(result);
           
-          return {
-            hex: chromaColor.hex(),
-            rgb: { r: rgb[0], g: rgb[1], b: rgb[2] },
-            hsl: { h: hsl[0], s: hsl[1], l: hsl[2] },
-            name: `Color ${index + 1}`
-          };
-        });
-        
-        setPalette(colors);
-        setGenerationMode('image');
-        
-        trackColorPaletteGeneration('image', colors.length);
-        trackToolUsage('color_palette', 'extract_from_image', { palette_size: colors.length });
-        
-        toast.success('Colors extracted from image!');
-        setIsLoading(false);
+          // Extract colors from image
+          const extractedColors = await extractColorsFromImage(result, colorCount);
+          console.log('Extracted colors:', extractedColors);
+          
+          // Convert to Color[] format
+          const colors = extractedColors.map((hex, index) => {
+            const chromaColor = chroma(hex);
+            const rgb = chromaColor.rgb();
+            const hsl = chromaColor.hsl();
+            
+            return {
+              hex: chromaColor.hex(),
+              rgb: { r: rgb[0], g: rgb[1], b: rgb[2] },
+              hsl: { h: hsl[0], s: hsl[1], l: hsl[2] },
+              name: `Color ${index + 1}`
+            };
+          });
+          
+          console.log('Final palette:', colors);
+          setPalette(colors);
+          setGenerationMode('image');
+          
+          trackColorPaletteGeneration('image', colors.length);
+          trackToolUsage('color_palette', 'extract_from_image', { palette_size: colors.length });
+          
+          toast.success('Colors extracted from image!');
+          setIsLoading(false);
+        } catch (error) {
+          console.error('Error extracting colors:', error);
+          toast.error('Failed to extract colors from image');
+          setIsLoading(false);
+        }
       };
       
       reader.onerror = () => {
+        console.error('FileReader error');
         toast.error('Failed to read image file');
         setIsLoading(false);
       };
