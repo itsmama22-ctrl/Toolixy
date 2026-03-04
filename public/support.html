@@ -3,293 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Support - Sama Goals</title>
+    <title>Support & FAQ - Mohamed El Bouhssini</title>
     <style>
-        * {
+        :root {
+            --primary-bg: #f5f5f7;
+            --card-bg: #ffffff;
+            --text-main: #1d1d1f;
+            --text-secondary: #86868b;
+            --accent: #D9A621;
+            --link: #0066cc;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-main);
+            line-height: 1.5;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
         }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-        
         .container {
             max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 20px;
+            margin: 60px auto;
             padding: 40px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            background: var(--card-bg);
+            border-radius: 24px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
         }
-        
-        h1 {
-            font-size: 2.5em;
-            color: #2c3e50;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-        
-        .subtitle {
-            text-align: center;
-            color: #7f8c8d;
-            font-size: 1.1em;
-            margin-bottom: 30px;
-        }
-        
-        .section {
-            margin-bottom: 30px;
-        }
-        
-        .section h2 {
-            font-size: 1.5em;
-            color: #2c3e50;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #e0e0e0;
-        }
-        
-        .section h3 {
-            font-size: 1.2em;
-            color: #34495e;
-            margin-top: 20px;
-            margin-bottom: 15px;
-        }
-        
-        .faq-item {
-            margin-bottom: 25px;
-        }
-        
-        .faq-question {
-            font-weight: 600;
-            color: #2c3e50;
-            font-size: 1.1em;
-            margin-bottom: 8px;
-        }
-        
-        .faq-answer {
-            color: #34495e;
-            line-height: 1.7;
-            margin-left: 0;
-        }
-        
-        .faq-answer ul {
-            margin-top: 10px;
-            margin-left: 20px;
-        }
-        
-        .faq-answer li {
-            margin-bottom: 5px;
-        }
-        
-        .contact-section {
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 12px;
-            border: 1px solid #e0e0e0;
-            margin-bottom: 30px;
-        }
-        
-        .contact-section h3 {
-            font-size: 1.3em;
-            color: #2c3e50;
-            margin-bottom: 15px;
-        }
-        
-        .contact-section p {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1em;
-            color: #34495e;
-            margin-bottom: 10px;
-        }
-        
-        .email {
-            font-family: 'Courier New', monospace;
-            font-weight: 600;
-            color: #667eea;
-            word-break: break-all;
-        }
-        
-        .divider {
-            height: 1px;
-            background: #e0e0e0;
-            margin: 30px 0;
-        }
-        
-        .thank-you {
-            text-align: center;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 12px;
-            margin-top: 30px;
-        }
-        
-        .copyright {
-            text-align: center;
-            color: #7f8c8d;
-            font-size: 0.9em;
-            margin-top: 20px;
-        }
-        
-        @media (max-width: 768px) {
-            .container {
-                padding: 25px;
-            }
-            
-            h1 {
-                font-size: 2em;
-            }
-            
-            .section h2 {
-                font-size: 1.3em;
-            }
-        }
+        header { text-align: center; margin-bottom: 50px; }
+        h1 { font-size: 40px; font-weight: 700; letter-spacing: -0.015em; margin-bottom: 12px; }
+        .subtitle { font-size: 21px; color: var(--text-secondary); font-weight: 400; }
+        .contact-card { background: #fafafa; padding: 32px; border-radius: 20px; text-align: center; margin: 40px 0; border: 1px solid #f2f2f2; }
+        .email-btn { display: inline-block; background: var(--text-main); color: white; padding: 12px 24px; border-radius: 30px; text-decoration: none; font-weight: 500; margin-top: 16px; transition: opacity 0.2s; }
+        .email-btn:hover { opacity: 0.8; }
+        section { margin-bottom: 60px; }
+        h2 { font-size: 28px; font-weight: 600; margin-bottom: 30px; text-align: center; }
+        .faq-item { margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid #f2f2f2; }
+        .faq-item:last-child { border-bottom: none; }
+        .question { font-size: 19px; font-weight: 600; margin-bottom: 12px; color: var(--text-main); display: flex; align-items: flex-start; }
+        .question::before { content: "Q:"; color: var(--accent); margin-right: 12px; font-weight: 700; }
+        .answer { font-size: 17px; color: #424245; padding-left: 36px; }
+        footer { margin-top: 60px; padding-top: 30px; border-top: 1px solid #f2f2f2; text-align: center; }
+        nav a { color: var(--link); text-decoration: none; font-weight: 500; margin: 0 15px; }
+        @media (max-width: 600px) { .container { margin: 20px; padding: 24px; border-radius: 16px; } h1 { font-size: 28px; } .subtitle { font-size: 18px; } }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Support</h1>
-        <p class="subtitle">We're here to help</p>
-        
-        <div class="contact-section">
-            <h3>Contact Us</h3>
-            <p>
-                <span>📧</span>
-                <span class="email">itsgogo.2222@gmail.com</span>
-            </p>
-            <p style="margin-top: 10px; color: #7f8c8d; font-size: 0.95em;">
-                Response Time: We typically respond within 24-48 hours
-            </p>
+        <header>
+            <h1>Support & FAQ</h1>
+            <p class="subtitle">How can we help you today?</p>
+        </header>
+
+        <div class="contact-card">
+            <h3 style="margin: 0; font-size: 20px;">Direct Support</h3>
+            <p style="margin: 8px 0; color: var(--text-secondary);">We typically respond within 24–48 hours.</p>
+            <a href="mailto:medlbouhssini@gmail.com" class="email-btn">Email: medlbouhssini@gmail.com</a>
         </div>
-        
-        <div class="section">
+
+        <section>
             <h2>Frequently Asked Questions</h2>
-            
             <div class="faq-item">
-                <div class="faq-question">Q: How do I report a bug?</div>
-                <div class="faq-answer">
-                    A: Please email us at <strong>itsgogo.2222@gmail.com</strong> with details about the issue, including your device model and iOS version. We'll investigate and fix it as soon as possible.
-                </div>
+                <div class="question">How do I report a bug or request a feature?</div>
+                <div class="answer">Your feedback drives our innovation. Please email us with a description of your idea or the issue you encountered. Screenshots or videos are always helpful!</div>
             </div>
-            
             <div class="faq-item">
-                <div class="faq-question">Q: How do I request a feature?</div>
-                <div class="faq-answer">
-                    A: We'd love to hear your ideas! Send us an email at <strong>itsgogo.2222@gmail.com</strong> with your suggestions. Your feedback helps us improve our app.
-                </div>
+                <div class="question">How do I manage my premium subscription?</div>
+                <div class="answer">All subscriptions are managed securely by Apple. You can view, change, or cancel them at any time via your <strong>iPhone Settings > [Your Name] > Subscriptions</strong>.</div>
             </div>
-            
             <div class="faq-item">
-                <div class="faq-question">Q: Do you collect my personal data?</div>
-                <div class="faq-answer">
-                    A: Please see our <a href="privacy-policy.html" style="color: #667eea; text-decoration: none;">Privacy Policy</a> for details about data collection. We use Google AdMob for advertising, which may collect certain information as described in our Privacy Policy.
-                </div>
+                <div class="question">Why do some apps show advertisements?</div>
+                <div class="answer">Ads allow us to offer free versions of our tools. For a pure, "Elite" experience, many of our apps offer ad-free premium versions via In-App Purchase.</div>
             </div>
-        </div>
-        
-        <div class="divider"></div>
-        
-        <div class="section">
-            <h2>About Ads</h2>
-            
             <div class="faq-item">
-                <div class="faq-question">Q: Why do I see ads in the app?</div>
-                <div class="faq-answer">
-                    A: Our app uses Google AdMob to display advertisements. This allows us to offer our app for free. Ads help support development and maintenance of our application.
-                </div>
+                <div class="question">How is my location data used?</div>
+                <div class="answer">For spiritual utilities (like Nur), location is used only to calculate local prayer times. This processing happens 100% locally on your device and is never shared with our servers.</div>
             </div>
-            
-            <div class="faq-item">
-                <div class="faq-question">Q: Can I remove ads?</div>
-                <div class="faq-answer">
-                    A: Currently, our app is supported by advertising. You can opt out of personalized advertising through your device settings:
-                    <ul>
-                        <li><strong>iOS:</strong> Settings → Privacy → Apple Advertising → Limit Ad Tracking</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="faq-item">
-                <div class="faq-question">Q: Are the ads safe?</div>
-                <div class="faq-answer">
-                    A: Yes, all ads are served through Google AdMob, which follows strict safety and quality guidelines. We do not control the specific ads shown, but Google filters inappropriate content.
-                </div>
-            </div>
-        </div>
-        
-        <div class="divider"></div>
-        
-        <div class="section">
-            <h2>Technical Support</h2>
-            
-            <div class="faq-item">
-                <div class="faq-question">Q: The app is crashing. What should I do?</div>
-                <div class="faq-answer">
-                    A: Try these steps:
-                    <ul>
-                        <li>Close and restart the app</li>
-                        <li>Update to the latest version from the App Store</li>
-                        <li>Restart your device</li>
-                        <li>If the issue persists, contact us with details about when the crash occurs</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="faq-item">
-                <div class="faq-question">Q: The app won't load quiz questions. Why?</div>
-                <div class="faq-answer">
-                    A: Make sure you have an active internet connection. Our app requires internet to fetch quiz topics and questions. Check your Wi-Fi or cellular connection and try again.
-                </div>
-            </div>
-            
-            <div class="faq-item">
-                <div class="faq-question">Q: Can I use the app offline?</div>
-                <div class="faq-answer">
-                    A: Some quiz features may work offline if quiz data has been cached. However, to access new quiz topics and questions, an internet connection is required.
-                </div>
-            </div>
-            
-            <div class="faq-item">
-                <div class="faq-question">Q: How do I reset my quiz progress?</div>
-                <div class="faq-answer">
-                    A: Currently, quiz progress is stored locally on your device. To reset your progress, you can delete and reinstall the app. We're working on adding a reset option in a future update.
-                </div>
-            </div>
-        </div>
-        
-        <div class="divider"></div>
-        
-        <div class="section">
-            <h2>App Store Reviews</h2>
-            <p style="color: #34495e; line-height: 1.7;">
-                If you enjoy our app, please consider leaving a review on the App Store. Your feedback helps us improve and helps other users discover our app!
+        </section>
+
+        <footer>
+            <nav>
+                <a href="privacy-policy.html">Privacy Policy</a>
+            </nav>
+            <p style="font-size: 13px; color: var(--text-secondary); margin-top: 20px;">
+                © 2026 Mohamed El Bouhssini. All rights reserved.
             </p>
-        </div>
-        
-        <div class="divider"></div>
-        
-        <div class="section">
-            <h2>Privacy & Terms</h2>
-            <p style="color: #34495e;">
-                <a href="privacy-policy.html" style="color: #667eea; text-decoration: none;">Privacy Policy</a>
-            </p>
-        </div>
-        
-        <div class="thank-you">
-            <p style="color: #34495e; font-size: 1.1em; line-height: 1.7;">
-                Thank you for using our app! We appreciate your support and are committed to providing the best possible experience.
-            </p>
-        </div>
-        
-        <p class="copyright">© 2025 George Foster. All rights reserved.</p>
+        </footer>
     </div>
 </body>
 </html>
