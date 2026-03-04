@@ -3,163 +3,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy - Sama Goals</title>
+    <title>Privacy Policy</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --primary-color: #5856d6; /* Modern iOS-like purple/blue */
+            --text-main: #1d1d1f;
+            --text-secondary: #86868b;
+            --bg-color: #f5f5f7;
+            --card-bg: #ffffff;
         }
-        
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
+            color: var(--text-main);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 40px 20px;
+            -webkit-font-smoothing: antialiased;
         }
         
         .container {
             max-width: 800px;
             margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            background: var(--card-bg);
+            padding: 40px 50px;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
         }
         
-        h1 {
-            font-size: 2.5em;
-            color: #2c3e50;
-            margin-bottom: 10px;
-            text-align: center;
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            border-bottom: 2px solid #f1f1f1;
+            padding-bottom: 8px;
+        }
+        
+        h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
         }
         
         .last-updated {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 2.5rem;
+        }
+        
+        p {
+            margin-bottom: 1.2rem;
+            font-size: 1.05rem;
+        }
+        
+        ul {
+            margin-bottom: 1.2rem;
+            padding-left: 24px;
+        }
+        
+        li {
+            margin-bottom: 0.8rem;
+            font-size: 1.05rem;
+        }
+        
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.2s ease;
+        }
+
+        a:hover {
+            opacity: 0.7;
+            text-decoration: underline;
+        }
+
+        .footer {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid #eaeaea;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
             text-align: center;
-            color: #7f8c8d;
-            font-size: 0.9em;
-            margin-bottom: 30px;
         }
         
-        .content {
-            font-size: 1.1em;
-            line-height: 1.8;
-            color: #34495e;
-        }
-        
-        .content h2 {
-            font-size: 1.4em;
-            color: #2c3e50;
-            margin-top: 30px;
-            margin-bottom: 15px;
-        }
-        
-        .content p {
-            margin-bottom: 15px;
-        }
-        
-        .content ul {
-            margin-left: 20px;
-            margin-bottom: 15px;
-        }
-        
-        .content li {
-            margin-bottom: 8px;
-        }
-        
-        .divider {
-            height: 1px;
-            background: #e0e0e0;
-            margin: 30px 0;
-        }
-        
-        .contact-section {
-            margin-top: 30px;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 12px;
-            border: 1px solid #e0e0e0;
-        }
-        
-        .contact-section h3 {
-            font-size: 1.2em;
-            color: #2c3e50;
-            margin-bottom: 15px;
-        }
-        
-        .contact-section p {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1em;
-            color: #34495e;
-        }
-        
-        .email {
-            font-family: 'Courier New', monospace;
-            font-weight: 600;
-            color: #667eea;
-            word-break: break-all;
-        }
-        
-        @media (max-width: 768px) {
+        @media (max-width: 600px) {
             .container {
-                padding: 25px;
+                padding: 30px 20px;
+                border-radius: 16px;
             }
-            
+            body {
+                padding: 10px;
+            }
             h1 {
-                font-size: 2em;
-            }
-            
-            .content {
-                font-size: 1em;
+                font-size: 2rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Privacy Policy</h1>
-        <p class="last-updated">Last updated: Jan 3, 2026</p>
-        
-        <div class="content">
-            <p>We respect your privacy. This policy explains how Sama Goals handles data.</p>
-            
-            <h2>1) What the app does</h2>
-            <p>Sama Goals is a football quiz app that helps you test and improve your knowledge of football topics. The app provides interactive quiz questions and tracks your progress.</p>
-            
-            <h2>2) Quiz content</h2>
-            <p>The quiz questions and topics are provided within the app. We do not collect or store your quiz answers on our servers. All quiz interactions happen locally on your device.</p>
-            
-            <h2>3) Local storage</h2>
-            <p>To improve the experience, the app may store some data locally, such as:</p>
-            <ul>
-                <li>Quiz progress and scores</li>
-                <li>Language/dark‑mode preferences</li>
-                <li>Cached quiz topics for performance</li>
-            </ul>
-            
-            <h2>4) Ads (AdMob)</h2>
-            <p>The app may display ads served by Google AdMob. Google may collect device identifiers and technical data (such as the advertising identifier and performance signals) to serve and measure ads. You can control personalized ads from your iOS settings.</p>
-            
-            <h2>5) Firebase</h2>
-            <p>The app may use Firebase services (such as Firestore) to fetch quiz topics, questions, or app configuration. Data is transmitted over the Internet according to Google's policies.</p>
-            
-            <h2>6) External links</h2>
-            <p>The app may open third‑party links or content. We are not responsible for the privacy practices of those third parties.</p>
-            
-            <div class="divider"></div>
-            
-            <div class="contact-section">
-                <h3>Contact</h3>
-                <p>
-                    <span>📧</span>
-                    <span class="email">itsgogo.2222@gmail.com</span>
-                </p>
-            </div>
-        </div>
+
+<div class="container">
+    <h1>Privacy Policy</h1>
+    <p class="last-updated">Last updated: February 25, 2026</p>
+
+    <h2>1. Our Privacy Mission</h2>
+    <p>At the heart of our mission is a simple belief: your data belongs to you. We design all of our applications with a "Privacy First" approach, ensuring that your digital experience remains private and secure.</p>
+
+    <h2>2. Core Principles</h2>
+    <p>We offer various types of applications. Depending on the specific app you are using, the following principles apply:</p>
+    
+    <h3>A. Ad-Supported Applications (Free)</h3>
+    <p>Some of our applications use third-party advertising networks, such as Google AdMob, to provide content at no cost to you. These advertising networks may collect certain device-specific information (such as IDFA/AAID) to serve relevant advertisements. You have control over ad tracking preferences through your device's privacy settings.</p>
+
+    <h3>B. Premium Applications (Ad-Free)</h3>
+    <p>Our premium applications, or applications where you have purchased an ad removal subscription, are built without any third-party ads or tracking SDKs for marketing purposes. These versions are designed to collect zero personal data for advertising.</p>
+
+    <h3>C. In-App Purchases & Subscriptions</h3>
+    <p>All financial transactions are handled securely via Apple StoreKit. We never see, process, or store your payment details or billing address on our servers.</p>
+
+    <h2>3. Localized Data Processing</h2>
+    <p>We believe in decentralized data. Features that require device sensors or permissions (such as location access) are processed locally on your device. No location data is ever transmitted to or stored on our servers.</p>
+
+    <h2>4. Voice Data and Artificial Intelligence</h2>
+    <p>For applications utilizing voice recording, dictation, or Artificial Intelligence (AI) features, we transparently handle your data as follows to strictly protect your privacy:</p>
+    <ul>
+        <li><strong>Voice Recordings & Transcription (Apple Speech):</strong> When you record audio for transcription purposes, the app requires microphone access. Your voice recordings are sent securely to Apple's Speech Recognition service to accurately transcribe the audio into text. We do not store these audio files on external servers; they remain on your local device.</li>
+        <li><strong>Text Processing (Google Gemini AI):</strong> To provide intelligent features such as note summarization, translation, and action-item extraction, the text contents of your notes may be securely transmitted to Google's Gemini API. </li>
+        <li><strong>User Consent & Optionality:</strong> You have the explicit choice to opt-in or opt-out of these AI features at any time. If you decline AI features, your text notes will not be sent to Google, and the app will operate locally. We do not use your voice or text data to train our own AI models, and data shared with these third-party services is subject to their respective robust privacy and security protections.</li>
+    </ul>
+
+    <h2>5. Security</h2>
+    <p>We use industry-standard security measures to protect the integrity of our systems. Since we don't collect or store your personal identity data on our servers, your digital footprint remains minimal and secure.</p>
+
+    <div class="footer">
+        <p><a href="https://itsmama22-ctrl.github.io/privacy-support/support.html">Contact Support & FAQ</a></p>
+        <p>&copy; 2026 Mohamed El Bouhssini. All rights reserved.</p>
     </div>
+</div>
+
 </body>
 </html>
